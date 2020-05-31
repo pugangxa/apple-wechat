@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gangs.apple.repository.AppleLaborMapper">
+  <resultMap id="BaseResultMap" type="com.gangs.apple.domain.AppleLabor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user_name" jdbcType="VARCHAR" property="createUserName" />
+    <result column="limit_start_time" jdbcType="TIMESTAMP" property="limitStartTime" />
+    <result column="limit_end_time" jdbcType="TIMESTAMP" property="limitEndTime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="additional_info" jdbcType="VARCHAR" property="additionalInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, location, type, phone, status, create_user, create_time, create_user_name, limit_start_time, 
+    limit_end_time, description, additional_info
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_apple_labor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_apple_labor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gangs.apple.domain.AppleLabor">
+    insert into t_apple_labor (id, location, type, 
+      phone, status, create_user, 
+      create_time, create_user_name, limit_start_time, 
+      limit_end_time, description, additional_info
+      )
+    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, 
+      #{limitEndTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{additionalInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gangs.apple.domain.AppleLabor">
+    insert into t_apple_labor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUserName != null">
+        create_user_name,
+      </if>
+      <if test="limitStartTime != null">
+        limit_start_time,
+      </if>
+      <if test="limitEndTime != null">
+        limit_end_time,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="additionalInfo != null">
+        additional_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null">
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="limitStartTime != null">
+        #{limitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitEndTime != null">
+        #{limitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalInfo != null">
+        #{additionalInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gangs.apple.domain.AppleLabor">
+    update t_apple_labor
+    <set>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null">
+        create_user_name = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="limitStartTime != null">
+        limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitEndTime != null">
+        limit_end_time = #{limitEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalInfo != null">
+        additional_info = #{additionalInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gangs.apple.domain.AppleLabor">
+    update t_apple_labor
+    set location = #{location,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user_name = #{createUserName,jdbcType=VARCHAR},
+      limit_start_time = #{limitStartTime,jdbcType=TIMESTAMP},
+      limit_end_time = #{limitEndTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      additional_info = #{additionalInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
