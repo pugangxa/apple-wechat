@@ -1,31 +1,22 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <p>北极镇果业信息发布平台</p>
-    </div>
     <router-view />
+    <back-to-top
+      :visibility-height="100"
+      :back-position="0"
+      transition-name="fade"
+      ref="backTop"
+    />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import BackToTop from "@/components/BackToTop";
 
-#nav {
-  padding: 30px;
-
-  p {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  name: "App",
+  components: {
+    BackToTop
   }
-}
-</style>
+};
+</script>

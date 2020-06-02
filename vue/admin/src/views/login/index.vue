@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div id="title">
+      <p>北极镇果业信息发布平台</p>
+    </div>
     <div>
       <img
         src="@/assets/fruit.png"
@@ -52,12 +55,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .text-foot {
   text-align: center;
   padding: 10px;
   font-weight: 700;
   margin-top: 20px;
   color: var(--color-semidark);
+}
+#title {
+  p {
+    font-weight: bold;
+    color: #2c3e50;
+  }
+  padding: 20px;
 }
 </style>
