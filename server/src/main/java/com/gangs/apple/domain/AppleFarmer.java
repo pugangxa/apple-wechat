@@ -7,7 +7,15 @@ public class AppleFarmer {
 
     private String name;
 
-    private Integer location;
+    private String location;
+
+    private String category;
+
+    private Integer quantity;
+
+    private Integer grade;
+
+    private Integer delegate;
 
     private Integer phone;
 
@@ -37,12 +45,44 @@ public class AppleFarmer {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(Integer location) {
-        this.location = location;
+    public void setLocation(String location) {
+        this.location = location == null ? null : location.trim();
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category == null ? null : category.trim();
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Integer getDelegate() {
+        return delegate;
+    }
+
+    public void setDelegate(Integer delegate) {
+        this.delegate = delegate;
     }
 
     public Integer getPhone() {

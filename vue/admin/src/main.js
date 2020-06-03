@@ -12,7 +12,9 @@ import {
   TabbarItem,
   Field,
   Popup,
-  Picker
+  Picker,
+  Swipe,
+  SwipeItem
 } from "vant";
 
 Vue.use(Cell)
@@ -22,7 +24,9 @@ Vue.use(Cell)
   .use(TabbarItem)
   .use(Field)
   .use(Popup)
-  .use(Picker);
+  .use(Picker)
+  .use(Swipe)
+  .use(SwipeItem);
 
 Vue.config.productionTip = false;
 

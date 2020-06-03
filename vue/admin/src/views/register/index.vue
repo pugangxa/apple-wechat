@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="lowin-brand">
-      <img src="@/assets/logo.png" alt="logo" style="margin-top: 12px" />
+      <img src="@/assets/fruitBasket.png" alt="logo" style="margin-top: 12px" />
     </div>
     <div class="lowin-box-inner">
       <van-form @submit="onSubmit">

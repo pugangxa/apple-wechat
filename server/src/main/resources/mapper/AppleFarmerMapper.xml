@@ -4,7 +4,11 @@
   <resultMap id="BaseResultMap" type="com.gangs.apple.domain.AppleFarmer">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="location" jdbcType="INTEGER" property="location" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="delegate" jdbcType="INTEGER" property="delegate" />
     <result column="phone" jdbcType="INTEGER" property="phone" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
@@ -13,7 +17,8 @@
     <result column="additional_info" jdbcType="VARCHAR" property="additionalInfo" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, location, phone, status, create_user, create_time, create_user_name, additional_info
+    id, name, location, category, quantity, grade, delegate, phone, status, create_user, 
+    create_time, create_user_name, additional_info
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,13 +32,15 @@
   </delete>
   <insert id="insert" parameterType="com.gangs.apple.domain.AppleFarmer">
     insert into t_apple_farmer (id, name, location, 
-      phone, status, create_user, 
-      create_time, create_user_name, additional_info
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=INTEGER}, 
-      #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, #{additionalInfo,jdbcType=VARCHAR}
-      )
+      category, quantity, grade, 
+      delegate, phone, status, 
+      create_user, create_time, create_user_name, 
+      additional_info)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+      #{delegate,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, 
+      #{additionalInfo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gangs.apple.domain.AppleFarmer">
     insert into t_apple_farmer
@@ -46,6 +53,18 @@
       </if>
       <if test="location != null">
         location,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="delegate != null">
+        delegate,
       </if>
       <if test="phone != null">
         phone,
@@ -74,7 +93,19 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="location != null">
-        #{location,jdbcType=INTEGER},
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="delegate != null">
+        #{delegate,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=INTEGER},
@@ -103,7 +134,19 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="location != null">
-        location = #{location,jdbcType=INTEGER},
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="delegate != null">
+        delegate = #{delegate,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=INTEGER},
@@ -129,7 +172,11 @@
   <update id="updateByPrimaryKey" parameterType="com.gangs.apple.domain.AppleFarmer">
     update t_apple_farmer
     set name = #{name,jdbcType=VARCHAR},
-      location = #{location,jdbcType=INTEGER},
+      location = #{location,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      delegate = #{delegate,jdbcType=INTEGER},
       phone = #{phone,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_user = #{createUser,jdbcType=INTEGER},

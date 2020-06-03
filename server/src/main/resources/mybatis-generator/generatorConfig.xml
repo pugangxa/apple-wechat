@@ -42,10 +42,10 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
- 		<table tableName="t_user" domainObjectName="User" enableCountByExample="false"
+ 		<!--table tableName="t_user" domainObjectName="User" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
+        </table-->
         
  		<table tableName="t_apple_farmer" domainObjectName="AppleFarmer" enableCountByExample="false"
                enableUpdateByExample="false"

@@ -5,9 +5,11 @@ import java.util.Date;
 public class AppleLabor {
     private Integer id;
 
-    private String location;
-
     private Integer type;
+
+    private Integer number;
+
+    private Integer pay;
 
     private Integer phone;
 
@@ -35,20 +37,28 @@ public class AppleLabor {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
-    }
-
     public Integer getType() {
         return type;
     }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public Integer getPay() {
+        return pay;
+    }
+
+    public void setPay(Integer pay) {
+        this.pay = pay;
     }
 
     public Integer getPhone() {

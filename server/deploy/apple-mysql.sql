@@ -32,7 +32,11 @@ DROP TABLE IF EXISTS `t_apple_farmer`;
 CREATE TABLE `t_apple_farmer`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `location` int(11) NULL DEFAULT NULL COMMENT '地址',
+  `location` varchar(255) NULL DEFAULT NULL COMMENT '地址',
+  `category` varchar(255) DEFAULT NULL COMMENT '种植品种',
+  `quantity` int(11) NULL DEFAULT NULL COMMENT '果园产量',
+  `grade` int(11) NULL DEFAULT NULL COMMENT '果品等级',
+  `delegate` int(11) NULL DEFAULT NULL COMMENT '是否托管 1 不托管 2 托管',
   `phone` int(11) NULL DEFAULT NULL COMMENT '电话号码',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',
   `create_user` int(11) NULL DEFAULT NULL,
@@ -50,7 +54,10 @@ DROP TABLE IF EXISTS `t_apple_merchant`;
 CREATE TABLE `t_apple_merchant`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `location` int(11) NULL DEFAULT NULL COMMENT '地址',
+  `location` varchar(255) NULL DEFAULT NULL COMMENT '地址',
+  `category` varchar(255) DEFAULT NULL COMMENT '经营品种',
+  `quantity` int(11) NULL DEFAULT NULL COMMENT '采购数量',
+  `grade` int(11) NULL DEFAULT NULL COMMENT '果品等级',
   `phone` int(11) NULL DEFAULT NULL COMMENT '电话号码',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',
   `create_user` int(11) NULL DEFAULT NULL,
@@ -66,8 +73,9 @@ CREATE TABLE `t_apple_merchant`  (
 DROP TABLE IF EXISTS `t_apple_labor`;
 CREATE TABLE `t_apple_labor`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `location` varchar(255) NULL DEFAULT NULL COMMENT '地址',
   `type` int(11) NULL DEFAULT NULL COMMENT '1, 供方 2, 需方',
+  `number` int(11) NULL DEFAULT NULL COMMENT '人数',
+  `pay` int(11) NULL DEFAULT NULL COMMENT '日薪',
   `phone` int(11) NULL DEFAULT NULL COMMENT '电话号码',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',
   `create_user` int(11) NULL DEFAULT NULL,
@@ -75,7 +83,7 @@ CREATE TABLE `t_apple_labor`  (
   `create_user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `limit_start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
   `limit_end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `additional_info` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
@@ -86,7 +94,9 @@ CREATE TABLE `t_apple_labor`  (
 DROP TABLE IF EXISTS `t_apple_supply`;
 CREATE TABLE `t_apple_supply`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `location` varchar(255) NULL DEFAULT NULL COMMENT '地址',
+  `quantity` int(11) NULL DEFAULT NULL COMMENT '数量',
+  `grade` int(11) NULL DEFAULT NULL COMMENT '果品等级',
+  `price` int(11) NULL DEFAULT NULL COMMENT '价格',
   `type` int(11) NULL DEFAULT NULL COMMENT '1, 供方 2, 需方',
   `phone` int(11) NULL DEFAULT NULL COMMENT '电话号码',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',

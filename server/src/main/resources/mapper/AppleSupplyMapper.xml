@@ -3,7 +3,9 @@
 <mapper namespace="com.gangs.apple.repository.AppleSupplyMapper">
   <resultMap id="BaseResultMap" type="com.gangs.apple.domain.AppleSupply">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="price" jdbcType="INTEGER" property="price" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="phone" jdbcType="INTEGER" property="phone" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -16,8 +18,8 @@
     <result column="additional_info" jdbcType="VARCHAR" property="additionalInfo" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, location, type, phone, status, create_user, create_time, create_user_name, limit_start_time, 
-    limit_end_time, description, additional_info
+    id, quantity, grade, price, type, phone, status, create_user, create_time, create_user_name, 
+    limit_start_time, limit_end_time, description, additional_info
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -30,16 +32,16 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.gangs.apple.domain.AppleSupply">
-    insert into t_apple_supply (id, location, type, 
-      phone, status, create_user, 
-      create_time, create_user_name, limit_start_time, 
-      limit_end_time, description, additional_info
-      )
-    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, 
-      #{limitEndTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, #{additionalInfo,jdbcType=VARCHAR}
-      )
+    insert into t_apple_supply (id, quantity, grade, 
+      price, type, phone, 
+      status, create_user, create_time, 
+      create_user_name, limit_start_time, limit_end_time, 
+      description, additional_info)
+    values (#{id,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
+      #{price,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUserName,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, #{limitEndTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{additionalInfo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gangs.apple.domain.AppleSupply">
     insert into t_apple_supply
@@ -47,8 +49,14 @@
       <if test="id != null">
         id,
       </if>
-      <if test="location != null">
-        location,
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="price != null">
+        price,
       </if>
       <if test="type != null">
         type,
@@ -85,8 +93,14 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -123,8 +137,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.gangs.apple.domain.AppleSupply">
     update t_apple_supply
     <set>
-      <if test="location != null">
-        location = #{location,jdbcType=VARCHAR},
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
@@ -161,7 +181,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gangs.apple.domain.AppleSupply">
     update t_apple_supply
-    set location = #{location,jdbcType=VARCHAR},
+    set quantity = #{quantity,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      price = #{price,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       phone = #{phone,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},

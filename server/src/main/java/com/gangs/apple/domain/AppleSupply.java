@@ -5,7 +5,11 @@ import java.util.Date;
 public class AppleSupply {
     private Integer id;
 
-    private String location;
+    private Integer quantity;
+
+    private Integer grade;
+
+    private Integer price;
 
     private Integer type;
 
@@ -35,12 +39,28 @@ public class AppleSupply {
         this.id = id;
     }
 
-    public String getLocation() {
-        return location;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public Integer getType() {
