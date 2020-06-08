@@ -3,7 +3,7 @@ package com.gangs.apple.repository;
 import java.util.List;
 
 import com.gangs.apple.domain.AppleLabor;
-import com.gangs.apple.viewmodel.normal.publish.AppleLaborRequestVM;
+import com.gangs.apple.viewmodel.normal.publish.AppleLaborPageRequestVM;
 
 public interface AppleLaborMapper extends BaseMapper<AppleLabor>{
     int deleteByPrimaryKey(Integer id);
@@ -18,5 +18,5 @@ public interface AppleLaborMapper extends BaseMapper<AppleLabor>{
 
     int updateByPrimaryKey(AppleLabor record);
     
-    List<AppleLabor> appleLaborPage(AppleLaborRequestVM requestVM);
+    List<AppleLabor> appleLaborPage(AppleLaborPageRequestVM requestVM);
 }

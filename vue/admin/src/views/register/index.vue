@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div class="lowin-brand">
-      <img src="@/assets/fruitBasket.png" alt="logo" style="margin-top: 12px" />
+    <div>
+      <img
+        src="@/assets/fruitBasket.png"
+        alt="logo"
+        style="margin-bottom: 5px;  margin-top: 30px; height: 100px;"
+      />
     </div>
     <div class="lowin-box-inner">
       <van-form @submit="onSubmit">
@@ -9,16 +13,16 @@
           <p>北极镇果业信息发布平台</p>
         </div>
         <van-field
-          v-model="userName"
-          name="用户名"
+          v-model="loginForm.userName"
+          name="userName"
           label="用户名"
           placeholder="用户名"
           :rules="[{ required: true, message: '请填写用户名' }]"
         />
         <van-field
-          v-model="password"
+          v-model="loginForm.password"
           type="password"
-          name="密码"
+          name="password"
           label="密码"
           placeholder="密码"
           :rules="[{ required: true, message: '请填写密码' }]"
@@ -26,10 +30,11 @@
         <van-field
           readonly
           clickable
-          name="picker"
+          name="userType"
           :value="value"
           label="用户类型"
           placeholder="点击选择用户类型"
+          :rules="[{ required: true, message: '请选择用户类型' }]"
           @click="showPicker = true"
         />
         <van-popup v-model="showPicker" position="bottom">
@@ -57,57 +62,70 @@
 </template>
 
 <script>
+import registerApi from "@/api/register";
+
 export default {
   name: "Register",
   data() {
     return {
-      userName: "",
-      password: "",
+      loginForm: {
+        userName: "",
+        password: "",
+        userType: 1
+      },
       value: "",
       columns: ["果农", "果商", "技术专家"],
       showPicker: false
     };
   },
   methods: {
-    onSubmit(values) {
-      console.log(values);
-      this.$router.push({ path: "/layout" });
+    onSubmit() {
+      let _this = this;
+      registerApi.register(this.loginForm).then(function(result) {
+        if (result && result.code === 1) {
+          _this.$router.push({ path: "/login" });
+        } else {
+          _this.$notify({
+            message: result.message
+          });
+        }
+      });
     },
     onConfirm(value) {
-      this.value = value;
+      switch (value) {
+        case "果农":
+          this.loginForm.userType = 1;
+          this.value = "果农";
+          break;
+        case "果商":
+          this.loginForm.userType = 2;
+          this.value = "果商";
+          break;
+        case "技术专家":
+          this.loginForm.userType = 3;
+          this.value = "技术专家";
+          break;
+        default:
+          //默认是果农
+          this.loginForm.userType = 1;
+          this.value = "果农";
+      }
       this.showPicker = false;
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-.lowin-brand {
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  margin: 10px auto -50px auto;
-  border-radius: 50%;
-  -webkit-box-shadow: 0 4px 40px rgba(0, 0, 0, 0.07);
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.07);
-  padding: 10px;
-  background-color: #fff;
-  z-index: 1;
-  position: relative;
-  img {
-    width: 100%;
-  }
-}
 .lowin-box-inner {
-  padding: 60px 25px 25px 25px;
+  padding: 1px 25px 25px 25px;
   text-align: left;
-  border-radius: 3px;
 }
 .lowin-title {
   text-align: center;
   font-weight: bold;
   font-size: 18px;
   color: #2c3e50;
-  padding: 20px;
+  padding: 10px;
 }
 .text-foot {
   text-align: center;

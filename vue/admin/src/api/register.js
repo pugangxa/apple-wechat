@@ -1,5 +1,5 @@
-import { postWithLoadTip } from "@/utils/request";
+import { post } from "@/utils/request";
 
 export default {
-  register: query => postWithLoadTip(`/api/student/user/register`, query)
+  register: query => post(`/api/normal/user/register`, query)
 };

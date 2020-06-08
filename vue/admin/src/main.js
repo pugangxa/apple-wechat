@@ -6,6 +6,8 @@ import "@/styles/index.scss"; // global css
 
 import {
   Cell,
+  Col,
+  Row,
   Tabbar,
   Form,
   Button,
@@ -14,10 +16,25 @@ import {
   Popup,
   Picker,
   Swipe,
-  SwipeItem
+  SwipeItem,
+  Notify,
+  Tab,
+  Tabs,
+  Grid,
+  GridItem,
+  NavBar,
+  RadioGroup,
+  Radio,
+  Sticky,
+  List,
+  PullRefresh,
+  Divider,
+  Icon
 } from "vant";
 
 Vue.use(Cell)
+  .use(Col)
+  .use(Row)
   .use(Tabbar)
   .use(Form)
   .use(Button)
@@ -26,7 +43,20 @@ Vue.use(Cell)
   .use(Popup)
   .use(Picker)
   .use(Swipe)
-  .use(SwipeItem);
+  .use(SwipeItem)
+  .use(Notify)
+  .use(Tab)
+  .use(Tabs)
+  .use(Grid)
+  .use(GridItem)
+  .use(NavBar)
+  .use(RadioGroup)
+  .use(Radio)
+  .use(Sticky)
+  .use(List)
+  .use(PullRefresh)
+  .use(Divider)
+  .use(Icon);
 
 Vue.config.productionTip = false;
 

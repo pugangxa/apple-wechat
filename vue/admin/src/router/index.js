@@ -4,6 +4,18 @@ import Layout from "@/views/layout";
 
 Vue.use(VueRouter);
 
+//resolve the 重复点击错误
+//https://www.cnblogs.com/xinheng/p/13019818.html
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err);
+};
+
+const originalReplace = VueRouter.prototype.replace;
+VueRouter.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err);
+};
+
 const routes = [
   {
     path: "/login",
@@ -20,7 +32,19 @@ const routes = [
   {
     path: "/",
     component: Layout,
-    redirect: "/index",
+    redirect: "/dashboard/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/dashboard/index"),
+        name: "",
+        meta: { title: "首页" }
+      }
+    ]
+  },
+  {
+    path: "/dashboard",
+    component: Layout,
     children: [
       {
         path: "index",
@@ -41,6 +65,36 @@ const routes = [
         meta: { title: "发布" }
       }
     ]
+  },
+  {
+    path: "/action/labor",
+    name: "laborAction",
+    component: () => import("@/views/action/components/labor"),
+    meta: { title: "劳务信息发布", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/action/supply",
+    name: "supplyAction",
+    component: () => import("@/views/action/components/supply"),
+    meta: { title: "供需信息发布", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/action/farmer",
+    name: "farmerAction",
+    component: () => import("@/views/action/components/farmer"),
+    meta: { title: "果农信息发布", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/action/merchant",
+    name: "merchantAction",
+    component: () => import("@/views/action/components/merchant"),
+    meta: { title: "果商信息发布", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/action/expert",
+    name: "expertAction",
+    component: () => import("@/views/action/components/expert"),
+    meta: { title: "专家信息发布", bodyBackground: "#fbfbfb" }
   },
   {
     path: "/user",

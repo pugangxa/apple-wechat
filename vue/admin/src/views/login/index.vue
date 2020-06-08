@@ -13,16 +13,16 @@
     <div>
       <van-form @submit="onSubmit">
         <van-field
-          v-model="username"
-          name="用户名"
+          v-model="loginForm.userName"
+          name="userName"
           label="用户名"
           placeholder="用户名"
           :rules="[{ required: true, message: '请填写用户名' }]"
         />
         <van-field
-          v-model="password"
+          v-model="loginForm.password"
           type="password"
-          name="密码"
+          name="password"
           label="密码"
           placeholder="密码"
           :rules="[{ required: true, message: '请填写密码' }]"
@@ -43,14 +43,32 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
+import loginApi from "@/api/login";
+
 export default {
   data() {
-    return { username: "", password: "" };
+    return {
+      loginForm: {
+        userName: "",
+        password: "",
+        remember: false
+      }
+    };
   },
   methods: {
-    onSubmit(values) {
-      console.log("submit", values);
-    }
+    onSubmit() {
+      let _this = this;
+      loginApi.login(this.loginForm).then(function(result) {
+        if (result && result.code === 1) {
+          _this.setUserName(_this.loginForm.userName);
+          _this.$router.push({ path: "/" });
+        } else {
+          _this.$notify(result.message);
+        }
+      });
+    },
+    ...mapMutations(["setUserName"])
   }
 };
 </script>
