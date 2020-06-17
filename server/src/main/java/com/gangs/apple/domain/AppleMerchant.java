@@ -15,7 +15,7 @@ public class AppleMerchant {
 
     private Integer grade;
 
-    private Integer phone;
+    private String phone;
 
     private Integer status;
 
@@ -75,11 +75,11 @@ public class AppleMerchant {
         this.grade = grade;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

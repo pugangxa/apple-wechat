@@ -9,7 +9,7 @@
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
     <result column="delegate" jdbcType="INTEGER" property="delegate" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -38,7 +38,7 @@
       additional_info)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
       #{category,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
-      #{delegate,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{delegate,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, 
       #{additionalInfo,jdbcType=VARCHAR})
   </insert>
@@ -108,7 +108,7 @@
         #{delegate,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -149,7 +149,7 @@
         delegate = #{delegate,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -177,7 +177,7 @@
       quantity = #{quantity,jdbcType=INTEGER},
       grade = #{grade,jdbcType=INTEGER},
       delegate = #{delegate,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_user = #{createUser,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},

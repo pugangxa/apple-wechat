@@ -6,7 +6,7 @@
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="pay" jdbcType="INTEGER" property="pay" />
-    <result column="phone" jdbcType="INTEGER" property="phone" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -37,7 +37,7 @@
       limit_start_time, limit_end_time, description, 
       additional_info)
     values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, 
-      #{pay,jdbcType=INTEGER}, #{phone,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{pay,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{createUserName,jdbcType=VARCHAR}, 
       #{limitStartTime,jdbcType=TIMESTAMP}, #{limitEndTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
       #{additionalInfo,jdbcType=VARCHAR})
@@ -99,7 +99,7 @@
         #{pay,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        #{phone,jdbcType=INTEGER},
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -140,7 +140,7 @@
         pay = #{pay,jdbcType=INTEGER},
       </if>
       <if test="phone != null">
-        phone = #{phone,jdbcType=INTEGER},
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -174,7 +174,7 @@
     set type = #{type,jdbcType=INTEGER},
       number = #{number,jdbcType=INTEGER},
       pay = #{pay,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_user = #{createUser,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -185,4 +185,12 @@
       additional_info = #{additionalInfo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <select id="appleLaborPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.normal.publish.AppleLaborPageRequestVM">
+    select
+    <include refid="Base_Column_List" />
+    from t_apple_labor
+  </select>
 </mapper>

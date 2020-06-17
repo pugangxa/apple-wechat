@@ -1,19 +1,20 @@
 import axios from "axios";
 import vue from "vue";
+import router from "../router";
 
 const request = function(query) {
   return axios
     .request(query)
     .then(res => {
       if (res.data.code === 401) {
-        vue.prototype.$$router.push({ path: "/login" });
+        router.push({ path: "/login" });
         return Promise.reject(res.data);
       } else if (res.data.code === 500) {
         return Promise.reject(res.data);
       } else if (res.data.code === 501) {
         return Promise.reject(res.data);
       } else if (res.data.code === 502) {
-        vue.prototype.$$router.push({ path: "/login" });
+        router.push({ path: "/login" });
         return Promise.reject(res.data);
       } else {
         return Promise.resolve(res.data);

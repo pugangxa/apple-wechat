@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import registerApi from "@/api/register";
 
 export default {
@@ -83,6 +84,7 @@ export default {
       let _this = this;
       registerApi.register(this.loginForm).then(function(result) {
         if (result && result.code === 1) {
+          Toast.success("注册成功");
           _this.$router.push({ path: "/login" });
         } else {
           _this.$notify({

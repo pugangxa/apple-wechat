@@ -29,7 +29,8 @@ import {
   List,
   PullRefresh,
   Divider,
-  Icon
+  Icon,
+  Toast
 } from "vant";
 
 Vue.use(Cell)
@@ -56,7 +57,8 @@ Vue.use(Cell)
   .use(List)
   .use(PullRefresh)
   .use(Divider)
-  .use(Icon);
+  .use(Icon)
+  .use(Toast);
 
 Vue.config.productionTip = false;
 

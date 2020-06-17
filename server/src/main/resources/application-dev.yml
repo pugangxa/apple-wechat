@@ -8,4 +8,4 @@ spring:
     password: newpass
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-#debug: true
+debug: true

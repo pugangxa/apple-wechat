@@ -44,6 +44,7 @@ public class AppleLaborServiceImpl extends BaseServiceImpl<AppleLabor> implement
     	appleLabor.setCreateUser(user.getId());
     	appleLabor.setCreateUserName(user.getUserName());
     	appleLabor.setCreateTime(now);
+    	appleLabor.setStatus(1);
     	laborMapper.insertSelective(appleLabor);
 	}
 

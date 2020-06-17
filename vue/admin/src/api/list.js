@@ -1,6 +1,6 @@
-import { get } from "@/utils/request";
+import { post } from "@/utils/request";
 
 export default {
-  listLabor: query => get(`/api/normal/list/labor`, query),
-  listSupply: query => get(`/api/normal/list/supply`, query)
+  pagelistLabor: query => post(`/api/normal/publish/labor/pagelist`, query),
+  pagelistSupply: query => post(`/api/normal/publish/supply/pagelist`, query)
 };

@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 public class PublishController extends BaseApiController {
 	private final AppleLaborService laborService;
 	
-    @RequestMapping(value = "/labor/pageList", method = RequestMethod.POST)
+    @RequestMapping(value = "/labor/pagelist", method = RequestMethod.POST)
     public RestResponse<PageInfo<AppleLaborPageResponseVM>> pageListLabor(@RequestBody @Valid AppleLaborPageRequestVM model) {
         PageInfo<AppleLabor> pageInfo = laborService.page(model);
         PageInfo<AppleLaborPageResponseVM> page = PageInfoHelper.copyMap(pageInfo, e -> {

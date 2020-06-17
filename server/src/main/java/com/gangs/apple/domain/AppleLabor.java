@@ -11,7 +11,7 @@ public class AppleLabor {
 
     private Integer pay;
 
-    private Integer phone;
+    private String phone;
 
     private Integer status;
 
@@ -61,11 +61,11 @@ public class AppleLabor {
         this.pay = pay;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

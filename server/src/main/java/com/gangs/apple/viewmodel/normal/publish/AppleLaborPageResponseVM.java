@@ -12,7 +12,7 @@ public class AppleLaborPageResponseVM {
 
     private Integer pay;
 
-    private Integer phone;
+    private String phone;
 
     private String createTime;
 

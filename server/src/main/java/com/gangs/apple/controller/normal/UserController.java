@@ -49,7 +49,7 @@ public class UserController extends BaseApiController {
 		user.setCreateTime(new Date());
 		userService.insertByFilter(user);
 		UserEventLog userEventLog = new UserEventLog(user.getId(), user.getUserName(), user.getRealName(), new Date());
-		userEventLog.setContent("欢迎 " + user.getUserName() + " 注册来到学之思考试系统");
+		userEventLog.setContent("欢迎 " + user.getUserName() + " 注册果业平台系统");
 		eventPublisher.publishEvent(new UserEvent(userEventLog));
 		return RestResponse.ok();
 	}

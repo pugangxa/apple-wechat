@@ -11,8 +11,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "/publish/index.html");
-        registry.addRedirectViewController("/publish", "/publish/index.html");
+        registry.addRedirectViewController("/", "/index.html");
         registry.addRedirectViewController("/admin", "/admin/index.html");
     }
 
