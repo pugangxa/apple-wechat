@@ -14,7 +14,7 @@
             <van-col span="4" offset="1"
               ><van-icon name="smile-comment" size="38" color="#e6b3ff"
             /></van-col>
-            <van-col span="15"
+            <van-col span="14"
               ><van-row>{{ item.createUserName }}</van-row
               ><van-row
                 ><span style="font-size: 12px; color: #8585ad">{{
@@ -22,6 +22,13 @@
                 }}</span></van-row
               ></van-col
             >
+            <van-col span="3"
+              ><van-button round type="primary" size="small" @click="onAudit()"
+                >审核</van-button
+              >
+              <van-dialog v-model="showAudit" title="标题" show-cancel-button>
+                <audit-dialog></audit-dialog> </van-dialog
+            ></van-col>
           </van-row>
           <div
             style="margin: auto 12px; word-wrap: break-word; word-break: break-all;"
@@ -66,9 +73,11 @@
 
 <script>
 import listAPI from "@/api/list";
+import auditDialog from "./auditDialog";
 import { formatTime } from "@/utils";
 
 export default {
+  components: { auditDialog },
   name: "contentShow",
   props: { theme: Number },
   data() {
@@ -77,6 +86,7 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
+      showAudit: false,
       list: [],
       loading: false,
       finished: false,
@@ -121,6 +131,9 @@ export default {
           this.error = true;
           this.loading = false;
         });
+    },
+    onAudit() {
+      this.showAudit = true;
     },
     onRefresh() {
       // 目前暴力清空列表数据

@@ -4,13 +4,13 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 @Data
-public class AppleLaborRequestVM {
+public class AppleSupplyRequestVM {
     @NotNull
     private Integer type;
 
-    private Integer number;
+    private Integer quantity;
 
-    private Integer pay;
+    private Integer price;
     @NotNull
     private String phone;
     @NotNull

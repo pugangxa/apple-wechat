@@ -196,4 +196,14 @@
       additional_info = #{additionalInfo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  <select id="appleSupplyPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.normal.publish.AppleSupplyPageRequestVM">
+    select
+    <include refid="Base_Column_List" />
+    from t_apple_supply
+  </select>
 </mapper>

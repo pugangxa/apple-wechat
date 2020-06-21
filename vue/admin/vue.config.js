@@ -9,6 +9,7 @@ module.exports = {
     port: 8001,
     https: false,
     hotOnly: false,
+
     proxy: {
       "/api": {
         target: "http://localhost:8000",

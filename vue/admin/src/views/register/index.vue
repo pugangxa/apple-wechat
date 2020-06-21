@@ -28,6 +28,24 @@
           :rules="[{ required: true, message: '请填写密码' }]"
         />
         <van-field
+          v-model="againPassword"
+          type="password"
+          name="againPassword"
+          label="确认密码"
+          placeholder="请再次输入密码"
+          :rules="[
+            {
+              validator: value => {
+                if (value !== this.loginForm.password) {
+                  return false;
+                }
+              },
+              required: true,
+              message: '两次输入密码不一致'
+            }
+          ]"
+        />
+        <van-field
           readonly
           clickable
           name="userType"
@@ -74,6 +92,7 @@ export default {
         password: "",
         userType: 1
       },
+      againPassword: "",
       value: "",
       columns: ["果农", "果商", "技术专家"],
       showPicker: false

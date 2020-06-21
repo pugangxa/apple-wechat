@@ -30,7 +30,8 @@ import {
   PullRefresh,
   Divider,
   Icon,
-  Toast
+  Toast,
+  Dialog
 } from "vant";
 
 Vue.use(Cell)
@@ -58,7 +59,8 @@ Vue.use(Cell)
   .use(PullRefresh)
   .use(Divider)
   .use(Icon)
-  .use(Toast);
+  .use(Toast)
+  .use(Dialog);
 
 Vue.config.productionTip = false;
 

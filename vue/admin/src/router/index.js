@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/views/layout";
+import AdminLayout from "@/adminviews/layout";
 
 Vue.use(VueRouter);
 
@@ -104,6 +105,63 @@ const routes = [
         path: "index",
         component: () => import("@/views/user-info/index"),
         name: "UserInfo",
+        meta: { title: "个人中心" }
+      }
+    ]
+  },
+
+  //admin routes
+  {
+    path: "/admin/login",
+    name: "adminLogin",
+    component: () => import("@/adminviews/login/index"),
+    meta: { title: "登录", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/admin",
+    component: AdminLayout,
+    redirect: "/admin/audit/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/adminviews/audit/index"),
+        name: "",
+        meta: { title: "信息审核" }
+      }
+    ]
+  },
+  {
+    path: "/admin/audit",
+    component: AdminLayout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/adminviews/audit/index"),
+        name: "audit",
+        meta: { title: "信息审核" }
+      }
+    ]
+  },
+  {
+    path: "/admin/manage",
+    component: AdminLayout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/adminviews/manage/index"),
+        name: "manage",
+        meta: { title: "用户管理" }
+      }
+    ]
+  },
+  {
+    path: "/admin/user",
+    component: AdminLayout,
+    children: [
+      {
+        path: "index",
+        component: () => import("@/adminviews/user-info/index"),
+        name: "adminInfo",
         meta: { title: "个人中心" }
       }
     ]

@@ -1,8 +1,11 @@
 package com.gangs.apple.repository;
 
-import com.gangs.apple.domain.AppleSupply;
+import java.util.List;
 
-public interface AppleSupplyMapper {
+import com.gangs.apple.domain.AppleSupply;
+import com.gangs.apple.viewmodel.normal.publish.AppleSupplyPageRequestVM;
+
+public interface AppleSupplyMapper extends BaseMapper<AppleSupply>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(AppleSupply record);
@@ -14,4 +17,6 @@ public interface AppleSupplyMapper {
     int updateByPrimaryKeySelective(AppleSupply record);
 
     int updateByPrimaryKey(AppleSupply record);
+
+	List<AppleSupply> appleSupplyPage(AppleSupplyPageRequestVM requestVM);
 }
