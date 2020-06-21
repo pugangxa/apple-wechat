@@ -1,5 +1,7 @@
 server:
   port: 8000
+  servlet:
+    context-path: /apple
   compression:
     enabled: true
     min-response-size: 1
@@ -11,7 +13,7 @@ logging:
 
 #mybatis
 mybatis:
-  mapper-locations: classpath:/mapper/*.xml
+  mapper-locations: classpath*:/mapper/*.xml
   configuration:
     log-prefix: repository.
 

@@ -2,6 +2,10 @@ import axios from "axios";
 import vue from "vue";
 import router from "../router";
 
+let path = "/apple";
+let url = window.location.origin + path; //path为上下文路径，如果后端有配置就添加
+axios.defaults.baseURL = url;
+
 const request = function(query) {
   return axios
     .request(query)
