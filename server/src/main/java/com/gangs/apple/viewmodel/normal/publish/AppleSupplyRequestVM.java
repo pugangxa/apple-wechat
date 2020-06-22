@@ -10,7 +10,7 @@ public class AppleSupplyRequestVM {
 
     private Integer quantity;
 
-    private Integer price;
+    private Double price;
     @NotNull
     private String phone;
     @NotNull

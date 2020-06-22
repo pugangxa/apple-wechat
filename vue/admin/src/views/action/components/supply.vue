@@ -17,7 +17,7 @@
         <van-field
           v-model.number="supply.quantity"
           name="quantity"
-          label="数量"
+          label="数量(斤)"
           type="digit"
           placeholder="果品数量"
           :rules="[{ required: true, message: '请填写果品数量' }]"
@@ -25,8 +25,8 @@
         <van-field
           v-model.number="supply.price"
           name="price"
-          label="价格/元"
-          type="digit"
+          label="价格(元)"
+          type="number"
           placeholder="价格"
           :rules="[{ required: true, message: '请填写价格' }]"
         />

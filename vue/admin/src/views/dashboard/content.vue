@@ -29,13 +29,14 @@
             <p style="margin: 3px auto;">
               <span style="font-size: 14px;" v-if="theme == 0">
                 <span v-if="item.type == 1">招工需求</span>
-                <span v-else>工作需求</span> 人数: {{ item.number }} 日薪:
-                {{ item.pay }}元
+                <span v-else>工作需求</span> 人数: {{ item.number }} 日薪(元):
+                {{ item.pay }}
               </span>
               <span style="font-size: 14px;" v-if="theme == 1">
                 <span v-if="item.type == 1">收购需求</span>
-                <span v-else>销售需求</span> 数量: {{ item.quantity }} 价格:
-                {{ item.price }}元
+                <span v-else>销售需求</span> 数量(斤):
+                {{ item.quantity }} 价格(元):
+                {{ item.price }}
               </span>
             </p>
             <van-divider

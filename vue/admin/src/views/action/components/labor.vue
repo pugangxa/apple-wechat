@@ -25,7 +25,7 @@
         <van-field
           v-model.number="labor.pay"
           name="pay"
-          label="日薪/元"
+          label="日薪(元)"
           type="digit"
           placeholder="工资"
           :rules="[{ required: true, message: '请填写工资' }]"

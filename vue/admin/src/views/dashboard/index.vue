@@ -47,7 +47,7 @@ export default {
   methods: {
     onClick() {
       if (this.active == 2 || this.active == 3 || this.active == 4) {
-        this.$notify("暂未实现");
+        this.$notify("实现中");
       }
     }
   }

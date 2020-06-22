@@ -10,7 +10,7 @@ public class AppleSupplyPageResponseVM {
 
     private Integer quantity;
 
-    private Integer price;
+    private Double price;
 
     private String phone;
 

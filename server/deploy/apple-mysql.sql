@@ -96,7 +96,7 @@ CREATE TABLE `t_apple_supply`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `quantity` int(11) NULL DEFAULT NULL COMMENT '数量',
   `grade` int(11) NULL DEFAULT NULL COMMENT '果品等级',
-  `price` int(11) NULL DEFAULT NULL COMMENT '价格',
+  `price` double NULL DEFAULT NULL COMMENT '价格',
   `type` int(11) NULL DEFAULT NULL COMMENT '1, 供方 2, 需方',
   `phone` varchar(12) NULL DEFAULT NULL COMMENT '电话号码',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',

@@ -26,9 +26,10 @@
               ><van-button round type="primary" size="small" @click="onAudit()"
                 >审核</van-button
               >
-              <van-dialog v-model="showAudit" title="标题" show-cancel-button>
-                <audit-dialog></audit-dialog> </van-dialog
-            ></van-col>
+              <van-dialog v-model="showAudit" show-cancel-button>
+                <div slot="title">{{ item.phone }}</div></van-dialog
+              ></van-col
+            >
           </van-row>
           <div
             style="margin: auto 12px; word-wrap: break-word; word-break: break-all;"
@@ -73,11 +74,9 @@
 
 <script>
 import listAPI from "@/api/list";
-import auditDialog from "./auditDialog";
 import { formatTime } from "@/utils";
 
 export default {
-  components: { auditDialog },
   name: "contentShow",
   props: { theme: Number },
   data() {

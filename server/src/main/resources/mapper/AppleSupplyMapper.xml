@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="grade" jdbcType="INTEGER" property="grade" />
-    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -38,7 +38,7 @@
       create_user_name, limit_start_time, limit_end_time, 
       description, additional_info)
     values (#{id,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, #{grade,jdbcType=INTEGER}, 
-      #{price,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
       #{createUserName,jdbcType=VARCHAR}, #{limitStartTime,jdbcType=TIMESTAMP}, #{limitEndTime,jdbcType=TIMESTAMP}, 
       #{description,jdbcType=VARCHAR}, #{additionalInfo,jdbcType=VARCHAR})
@@ -100,7 +100,7 @@
         #{grade,jdbcType=INTEGER},
       </if>
       <if test="price != null">
-        #{price,jdbcType=INTEGER},
+        #{price,jdbcType=DOUBLE},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -144,7 +144,7 @@
         grade = #{grade,jdbcType=INTEGER},
       </if>
       <if test="price != null">
-        price = #{price,jdbcType=INTEGER},
+        price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
@@ -183,7 +183,7 @@
     update t_apple_supply
     set quantity = #{quantity,jdbcType=INTEGER},
       grade = #{grade,jdbcType=INTEGER},
-      price = #{price,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
       type = #{type,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
