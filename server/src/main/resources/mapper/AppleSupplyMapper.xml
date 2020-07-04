@@ -198,12 +198,18 @@
   </update>
   
   
-  
-  
-  
   <select id="appleSupplyPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.normal.publish.AppleSupplyPageRequestVM">
     select
     <include refid="Base_Column_List" />
     from t_apple_supply
-  </select>
+    <where>
+      <if test="status != null ">
+        and status= #{status}
+      </if>
+      <if test="createUserName !=null ">
+        and create_user_name= #{createUserName}
+      </if>
+    </where>
+  </select>  
+  
 </mapper>

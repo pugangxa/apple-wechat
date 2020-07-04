@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gangs.apple.domain.AppleSupply;
 import com.gangs.apple.domain.User;
+import com.gangs.apple.domain.enums.AuditStatusEnum;
 import com.gangs.apple.repository.AppleSupplyMapper;
 import com.gangs.apple.service.AppleSupplyService;
 import com.gangs.apple.utility.ModelMapperSingle;
@@ -46,6 +47,14 @@ public class AppleSupplyServiceImpl extends BaseServiceImpl<AppleSupply> impleme
     	appleSupply.setCreateTime(now);
     	appleSupply.setStatus(1);
     	supplyMapper.insertSelective(appleSupply);
+	}
+
+	@Override
+	public void audit(Integer id) {
+		AppleSupply appleSupply = supplyMapper.selectByPrimaryKey(id);
+		appleSupply.setStatus(AuditStatusEnum.Passed.getCode());
+		supplyMapper.updateByPrimaryKeySelective(appleSupply);
+		
 	}
 
 }

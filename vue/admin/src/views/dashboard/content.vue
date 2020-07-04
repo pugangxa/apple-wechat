@@ -82,9 +82,7 @@ export default {
       loading: false,
       finished: false,
       refreshing: false,
-      error: false,
-      pageIndex: 1,
-      pageSize: 10
+      error: false
     };
   },
   watch: {

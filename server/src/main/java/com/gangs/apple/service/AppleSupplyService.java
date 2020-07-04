@@ -9,4 +9,5 @@ import com.github.pagehelper.PageInfo;
 public interface AppleSupplyService extends BaseService<AppleSupply> {
 	PageInfo<AppleSupply> page(AppleSupplyPageRequestVM requestVM);
 	void edit(AppleSupplyRequestVM model, User user);
+	void audit(Integer id);
 }

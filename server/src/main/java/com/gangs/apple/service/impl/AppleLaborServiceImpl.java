@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gangs.apple.utility.ModelMapperSingle;
 import com.gangs.apple.domain.AppleLabor;
 import com.gangs.apple.domain.User;
+import com.gangs.apple.domain.enums.AuditStatusEnum;
 import com.gangs.apple.repository.AppleLaborMapper;
 import com.gangs.apple.service.AppleLaborService;
 import com.gangs.apple.viewmodel.normal.publish.AppleLaborPageRequestVM;
@@ -46,6 +47,13 @@ public class AppleLaborServiceImpl extends BaseServiceImpl<AppleLabor> implement
     	appleLabor.setCreateTime(now);
     	appleLabor.setStatus(1);
     	laborMapper.insertSelective(appleLabor);
+	}
+
+	@Override
+	public void audit(Integer id) {
+		AppleLabor appleLable = laborMapper.selectByPrimaryKey(id);
+		appleLable.setStatus(AuditStatusEnum.Passed.getCode());
+		laborMapper.updateByPrimaryKeySelective(appleLable);
 	}
 
 }

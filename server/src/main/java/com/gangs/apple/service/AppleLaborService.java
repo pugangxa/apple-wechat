@@ -9,4 +9,5 @@ import com.github.pagehelper.PageInfo;
 public interface AppleLaborService extends BaseService<AppleLabor> {
 	PageInfo<AppleLabor> page(AppleLaborPageRequestVM requestVM);
 	void edit(AppleLaborRequestVM model, User user);
+	void audit(Integer id);
 }

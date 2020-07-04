@@ -9,12 +9,16 @@
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
-        <div v-for="item in list" :key="item.id" style="text-align: left">
+        <div
+          v-for="(item, index) in list"
+          :key="item.id"
+          style="text-align: left"
+        >
           <van-row>
             <van-col span="4" offset="1"
               ><van-icon name="smile-comment" size="38" color="#e6b3ff"
             /></van-col>
-            <van-col span="14"
+            <van-col span="11"
               ><van-row>{{ item.createUserName }}</van-row
               ><van-row
                 ><span style="font-size: 12px; color: #8585ad">{{
@@ -23,13 +27,35 @@
               ></van-col
             >
             <van-col span="3"
-              ><van-button round type="primary" size="small" @click="onAudit()"
+              ><van-button
+                type="primary"
+                size="mini"
+                :disabled="item.buttonDisabled"
+                @click="onAudit(item)"
                 >审核</van-button
               >
-              <van-dialog v-model="showAudit" show-cancel-button>
-                <div slot="title">{{ item.phone }}</div></van-dialog
-              ></van-col
-            >
+              <van-dialog
+                v-model="audit.showAudit"
+                show-cancel-button
+                title="通过审核?"
+                :before-close="beforeAudit"
+              >
+              </van-dialog
+            ></van-col>
+            <van-col span="3" offset="2"
+              ><van-icon
+                name="cross"
+                size="20"
+                color="red"
+                @click="onDelete(item, index)"/>
+              <van-dialog
+                v-model="audit.showDelete"
+                show-cancel-button
+                title="确认删除?"
+                :before-close="beforeDelete"
+              >
+              </van-dialog
+            ></van-col>
           </van-row>
           <div
             style="margin: auto 12px; word-wrap: break-word; word-break: break-all;"
@@ -73,7 +99,7 @@
 </template>
 
 <script>
-import listAPI from "@/api/list";
+import adminAPI from "@/api/admin";
 import { formatTime } from "@/utils";
 
 export default {
@@ -85,14 +111,16 @@ export default {
         pageIndex: 1,
         pageSize: 10
       },
-      showAudit: false,
+      audit: {
+        showDelete: false,
+        showAudit: false
+      },
+
       list: [],
       loading: false,
       finished: false,
       refreshing: false,
-      error: false,
-      pageIndex: 1,
-      pageSize: 10
+      error: false
     };
   },
   watch: {
@@ -112,9 +140,9 @@ export default {
       this.loading = true;
       let request;
       if (this.theme == 0) {
-        request = listAPI.pagelistLabor(this.queryParam);
+        request = adminAPI.pagelistLabor(this.queryParam);
       } else if (this.theme == 1) {
-        request = listAPI.pagelistSupply(this.queryParam);
+        request = adminAPI.pagelistSupply(this.queryParam);
       }
       request
         .then(data => {
@@ -131,9 +159,51 @@ export default {
           this.loading = false;
         });
     },
-    onAudit() {
-      this.showAudit = true;
+    onAudit(item) {
+      let _this = this;
+      _this.audit.showAudit = true;
+      _this.beforeAudit = function(action, done) {
+        if (action === "confirm") {
+          let request;
+          if (_this.theme == 0) {
+            request = adminAPI.auditLabor(item.id);
+          } else if (_this.theme == 1) {
+            request = adminAPI.auditSupply(item.id);
+          }
+          request
+            .then(data => {
+              console.log(data);
+              item.buttonDisabled = true;
+            })
+            .catch(e => {
+              _this.$notify(e.message);
+            });
+        }
+        done();
+      };
     },
+    beforeAudit() {},
+    onDelete(item, index) {
+      let _this = this;
+      _this.audit.showDelete = true;
+      _this.beforeDelete = function(action, done) {
+        if (action === "confirm") {
+          let request;
+          if (_this.theme == 0) {
+            request = adminAPI.deleteLabor(item.id);
+          } else if (_this.theme == 1) {
+            request = adminAPI.deleteSupply(item.id);
+          }
+          request
+            .then(() => _this.list.splice(index, 1))
+            .catch(e => {
+              _this.$notify(e.message);
+            });
+        }
+        done();
+      };
+    },
+    beforeDelete() {},
     onRefresh() {
       // 目前暴力清空列表数据
       this.list = [];
@@ -149,6 +219,10 @@ export default {
     transferList(retArray) {
       for (let i = 0, len = retArray.length; i < len; i++) {
         let createTime = formatTime(retArray[i].createTime);
+        let buttonDisabled = false;
+        if (retArray[i].status == 2) {
+          buttonDisabled = true;
+        }
         this.list.push({
           id: retArray[i].id,
           type: retArray[i].type,
@@ -159,7 +233,8 @@ export default {
           phone: retArray[i].phone,
           createTime: createTime,
           createUserName: retArray[i].createUserName,
-          description: retArray[i].description
+          description: retArray[i].description,
+          buttonDisabled: buttonDisabled
         });
       }
     }

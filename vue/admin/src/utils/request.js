@@ -11,14 +11,22 @@ const request = function(query) {
     .request(query)
     .then(res => {
       if (res.data.code === 401) {
-        router.push({ path: "/login" });
+        if (window.location.href.split("#/")[1].startsWith("admin")) {
+          router.push({ path: "/admin/login" });
+        } else {
+          router.push({ path: "/login" });
+        }
         return Promise.reject(res.data);
       } else if (res.data.code === 500) {
         return Promise.reject(res.data);
       } else if (res.data.code === 501) {
         return Promise.reject(res.data);
       } else if (res.data.code === 502) {
-        router.push({ path: "/login" });
+        if (window.location.href.split("#/")[1].startsWith("admin")) {
+          router.push({ path: "/admin/login" });
+        } else {
+          router.push({ path: "/login" });
+        }
         return Promise.reject(res.data);
       } else {
         return Promise.resolve(res.data);
@@ -51,7 +59,19 @@ const get = function(url, params) {
     params: params,
     headers: { "request-ajax": true }
   };
-  return request(false, query);
+  return request(query);
+};
+
+const _delete = function(url, params) {
+  const query = {
+    url: url,
+    method: "delete",
+    withCredentials: true,
+    timeout: 30000,
+    params: params,
+    headers: { "Content-Type": "application/json", "request-ajax": true }
+  };
+  return request(query);
 };
 
 const form = function(url, params) {
@@ -63,7 +83,7 @@ const form = function(url, params) {
     data: params,
     headers: { "Content-Type": "multipart/form-data", "request-ajax": true }
   };
-  return request(false, query);
+  return request(query);
 };
 
-export { post, get, form };
+export { post, get, _delete, form };

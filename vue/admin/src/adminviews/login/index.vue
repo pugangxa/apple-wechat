@@ -37,7 +37,6 @@
   </div>
 </template>
 <script>
-import { Toast } from "vant";
 import { mapMutations } from "vuex";
 import loginApi from "@/api/login";
 
@@ -57,7 +56,6 @@ export default {
       loginApi.login(this.loginForm).then(function(result) {
         if (result && result.code === 1) {
           _this.setUserName(_this.loginForm.userName);
-          Toast.success("登录成功");
           _this.$router.push({ path: "/admin" });
         } else {
           _this.$notify(result.message);

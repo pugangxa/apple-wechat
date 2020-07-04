@@ -3,7 +3,9 @@ package com.gangs.apple.viewmodel.normal.publish;
 import lombok.Data;
 
 @Data
-public class AppleSupplyPageResponseVM {	
+public class AppleSupplyPageResponseVM {
+    private Integer status;
+	
     private Integer id;
 
     private Integer type;

@@ -20,6 +20,7 @@ import com.github.pagehelper.PageInfo;
 
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
+	private static final String DefaultPass = "C/iK1+hGVfLVqdtgngfXfG2mH+NEfkD6zB2ybqxmH7ikBzQ6QS1cuQ6oiHblFPSaP1MMXMTNlfZRPNJg//65RW8/NDSCE7gTEEUgOsSXbyttzIub2BSQOhpKHrC150BZq8RttAdWLl3pokKFQjXiTfbfW6j3+8A+N3/mJv0aa9I=";
 
     private final UserMapper userMapper;
 
@@ -135,4 +136,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     public List<User> selectByIds(List<Integer> ids) {
         return userMapper.selectByIds(ids);
     }
+
+
+	@Override
+	public void resetPassById(Integer id) {
+		User user = userMapper.selectByPrimaryKey(id);
+		user.setPassword(DefaultPass);
+		userMapper.updateByPrimaryKeySelective(user);
+	}
 }

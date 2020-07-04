@@ -192,5 +192,14 @@
     select
     <include refid="Base_Column_List" />
     from t_apple_labor
+    <where>
+      <if test="status != null ">
+        and status= #{status}
+      </if>
+      <if test="createUserName !=null ">
+        and create_user_name= #{createUserName}
+      </if>
+    </where>
   </select>
+  
 </mapper>

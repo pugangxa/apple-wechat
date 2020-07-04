@@ -110,4 +110,6 @@ public interface UserService extends BaseService<User> {
      * @return PageInfo<User>
      */
     PageInfo<User> userPage(UserPageRequestVM requestVM);
+
+	void resetPassById(Integer id);
 }

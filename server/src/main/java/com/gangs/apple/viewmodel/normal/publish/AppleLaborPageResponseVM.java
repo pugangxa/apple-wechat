@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class AppleLaborPageResponseVM {
+    private Integer status;
+	
     private Integer id;
 
     private Integer type;

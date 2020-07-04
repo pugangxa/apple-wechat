@@ -181,7 +181,7 @@
   
   
   
-    <select id="getAllUser" resultMap="BaseResultMap">
+  <select id="getAllUser" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from t_user
@@ -244,12 +244,6 @@
     </where>
   </select>
 
-
-
-
-
-
-
   <insert id="insertUsers" parameterType="java.util.List"
           useGeneratedKeys="true" keyProperty="id">
     insert into t_user
@@ -295,6 +289,20 @@
              close=")">
       #{id}
     </foreach>
+  </select>
+  
+  <select id="userPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.admin.user.UserPageRequestVM">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM t_user
+    <where>
+      <if test="userName != null and userName != ''">
+        and user_name like concat('%',#{userName},'%')
+      </if>
+      <if test="role != null ">
+        and role= #{role}
+      </if>
+    </where>
   </select>
   
 </mapper>

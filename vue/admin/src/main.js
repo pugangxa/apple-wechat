@@ -31,7 +31,8 @@ import {
   Divider,
   Icon,
   Toast,
-  Dialog
+  Dialog,
+  Search
 } from "vant";
 
 Vue.use(Cell)
@@ -60,6 +61,7 @@ Vue.use(Cell)
   .use(Divider)
   .use(Icon)
   .use(Toast)
+  .use(Search)
   .use(Dialog);
 
 Vue.config.productionTip = false;
