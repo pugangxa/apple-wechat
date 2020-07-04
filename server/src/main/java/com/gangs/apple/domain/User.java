@@ -27,8 +27,18 @@ public class User {
     private Date createTime;
 
     private Date modifyTime;
+    
+    private Integer userType;
 
-    public Integer getId() {
+    public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -53,13 +53,11 @@
           show-word-limit
           :rules="[{ required: true, message: '请填写详细描述' }]"
         />
-        <van-sticky>
-          <div style="margin: 16px;">
-            <van-button round block type="info" native-type="submit">
-              发布
-            </van-button>
-          </div>
-        </van-sticky>
+        <div style="margin: 16px;">
+          <van-button round block type="info" native-type="submit">
+            发布
+          </van-button>
+        </div>
       </van-form>
     </div>
   </div>

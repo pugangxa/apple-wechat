@@ -171,8 +171,7 @@ export default {
             request = adminAPI.auditSupply(item.id);
           }
           request
-            .then(data => {
-              console.log(data);
+            .then(() => {
               item.buttonDisabled = true;
             })
             .catch(e => {
@@ -217,10 +216,11 @@ export default {
       this.onLoad();
     },
     transferList(retArray) {
+      let status = { blocked: 1, audited: 2 };
       for (let i = 0, len = retArray.length; i < len; i++) {
         let createTime = formatTime(retArray[i].createTime);
         let buttonDisabled = false;
-        if (retArray[i].status == 2) {
+        if (retArray[i].status == status.audited) {
           buttonDisabled = true;
         }
         this.list.push({

@@ -32,7 +32,9 @@ import {
   Icon,
   Toast,
   Dialog,
-  Search
+  DropdownMenu,
+  DropdownItem,
+  SwitchCell
 } from "vant";
 
 Vue.use(Cell)
@@ -61,8 +63,10 @@ Vue.use(Cell)
   .use(Divider)
   .use(Icon)
   .use(Toast)
-  .use(Search)
-  .use(Dialog);
+  .use(Dialog)
+  .use(DropdownMenu)
+  .use(DropdownItem)
+  .use(SwitchCell);
 
 Vue.config.productionTip = false;
 

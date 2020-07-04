@@ -12,11 +12,12 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_uuid, user_name, password, real_name, age, sex, status, phone, role, create_time, 
+    id, user_uuid, user_name, password, real_name, age, sex, status, phone, role, user_type, create_time, 
     modify_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -33,12 +34,12 @@
     insert into t_user (id, user_uuid, user_name, 
       password, real_name, age, 
       sex, status, phone, 
-      role, create_time, modify_time
+      role, user_type, create_time, modify_time
       )
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
-      #{role,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
+      #{role,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.gangs.apple.domain.User">
@@ -73,6 +74,9 @@
       </if>
       <if test="role != null">
         role,
+      </if>
+      <if test="userType != null">
+        user_type,
       </if>
       <if test="createTime != null">
         create_time,
@@ -112,6 +116,9 @@
       <if test="role != null">
         #{role,jdbcType=INTEGER},
       </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -150,6 +157,9 @@
       <if test="role != null">
         role = #{role,jdbcType=INTEGER},
       </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -170,6 +180,7 @@
       status = #{status,jdbcType=INTEGER},
       phone = #{phone,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
+      user_type = #{userType,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

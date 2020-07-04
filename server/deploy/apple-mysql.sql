@@ -20,12 +20,13 @@ CREATE TABLE `t_user`  (
   `status` int(11) NULL DEFAULT NULL COMMENT '1.启用 2禁用',
   `phone` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `role` int(11) NULL DEFAULT NULL COMMENT '1.普通用户 2.管理员',
+  `user_type` int(11) NULL DEFAULT NULL COMMENT '1.果农 2.果商 3.技术专家',
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
-INSERT INTO `t_user` VALUES (1, '52045f5f-a13f-4ccc-93dd-f7ee8270ad4c', 'admin', 'D1AGFL+Gx37t0NPG4d6biYP5Z31cNbwhK5w1lUeiHB2zagqbk8efYfSjYoh1Z/j1dkiRjHU+b0EpwzCh8IGsksJjzD65ci5LsnodQVf4Uj6D3pwoscXGqmkjjpzvSJbx42swwNTA+QoDU8YLo7JhtbUK2X0qCjFGpd+8eJ5BGvk=', '管理员', 30, 1, 1, NULL, 2, '2019-09-07 18:56:07', '2019-09-07 18:56:21');
+INSERT INTO `t_user` VALUES (1, '52045f5f-a13f-4ccc-93dd-f7ee8270ad4c', 'admin', 'D1AGFL+Gx37t0NPG4d6biYP5Z31cNbwhK5w1lUeiHB2zagqbk8efYfSjYoh1Z/j1dkiRjHU+b0EpwzCh8IGsksJjzD65ci5LsnodQVf4Uj6D3pwoscXGqmkjjpzvSJbx42swwNTA+QoDU8YLo7JhtbUK2X0qCjFGpd+8eJ5BGvk=', '管理员', 30, 1, 1, NULL, 2, NULL, '2019-09-07 18:56:07', '2019-09-07 18:56:21');
 
 -- ----------------------------
 -- Table structure for t_apple_farmer
