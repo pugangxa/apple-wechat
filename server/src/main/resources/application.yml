@@ -1,7 +1,5 @@
 server:
   port: 8000
-  servlet:
-    context-path: /apple
   compression:
     enabled: true
     min-response-size: 1

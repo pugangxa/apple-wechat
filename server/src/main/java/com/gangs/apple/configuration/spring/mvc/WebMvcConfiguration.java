@@ -12,7 +12,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/index.html");
-        registry.addRedirectViewController("/admin", "/admin/index.html");
+        //registry.addRedirectViewController("/admin", "/admin/index.html");
     }
 
     @Override

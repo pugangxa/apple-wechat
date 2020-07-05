@@ -6,6 +6,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.gangs.apple.domain.User;
+import com.gangs.apple.exception.BusinessException;
 import com.gangs.apple.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -33,6 +34,8 @@ public class WebContext {
             user = userService.getUserByUserName(springUser.getUsername());
             if (null != user) {
                 setCurrentUser(user);
+            }else{
+            	throw new BusinessException("用户未登录或已被管理员删除");
             }
             return user;
         }
