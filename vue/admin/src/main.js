@@ -35,7 +35,8 @@ import {
   DropdownMenu,
   DropdownItem,
   SwitchCell,
-  Switch
+  Switch,
+  Tag
 } from "vant";
 
 Vue.use(Cell)
@@ -68,7 +69,8 @@ Vue.use(Cell)
   .use(DropdownMenu)
   .use(DropdownItem)
   .use(SwitchCell)
-  .use(Switch);
+  .use(Switch)
+  .use(Tag);
 
 Vue.config.productionTip = false;
 

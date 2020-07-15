@@ -9,12 +9,16 @@
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
-        <div v-for="item in list" :key="item.id" style="text-align: left">
+        <div
+          v-for="(item, index) in list"
+          :key="item.id"
+          style="text-align: left"
+        >
           <van-row>
             <van-col span="4" offset="1"
               ><van-icon name="smile-comment" size="38" color="#e6b3ff"
             /></van-col>
-            <van-col span="15"
+            <van-col span="11"
               ><van-row>{{ item.createUserName }}</van-row
               ><van-row
                 ><span style="font-size: 12px; color: #8585ad">{{
@@ -22,6 +26,25 @@
                 }}</span></van-row
               ></van-col
             >
+            <van-col span="3"
+              ><van-tag :type="item.status | toTagType">{{
+                item.status | toTagTitle
+              }}</van-tag>
+            </van-col>
+            <van-col span="3" offset="2"
+              ><van-icon
+                name="cross"
+                size="20"
+                color="red"
+                @click="onDelete(item, index)"/>
+              <van-dialog
+                v-model="audit.showDelete"
+                show-cancel-button
+                title="确认删除?"
+                :before-close="beforeDelete"
+              >
+              </van-dialog
+            ></van-col>
           </van-row>
           <div
             style="margin: auto 12px; word-wrap: break-word; word-break: break-all;"
@@ -29,14 +52,13 @@
             <p style="margin: 3px auto;">
               <span style="font-size: 14px;" v-if="theme == 0">
                 <span v-if="item.type == 1">招工需求</span>
-                <span v-else>工作需求</span> 人数: {{ item.number }} 日薪(元):
-                {{ item.pay }}
+                <span v-else>工作需求</span> 人数: {{ item.number }} 日薪:
+                {{ item.pay }}元
               </span>
               <span style="font-size: 14px;" v-if="theme == 1">
                 <span v-if="item.type == 1">收购需求</span>
-                <span v-else>销售需求</span> 数量(斤):
-                {{ item.quantity }} 价格(元):
-                {{ item.price }}
+                <span v-else>销售需求</span> 数量: {{ item.quantity }} 价格:
+                {{ item.price }}元
               </span>
             </p>
             <van-divider
@@ -67,6 +89,7 @@
 
 <script>
 import listAPI from "@/api/list";
+import deleteAPI from "@/api/publish";
 import { formatTime } from "@/utils";
 
 export default {
@@ -77,8 +100,13 @@ export default {
       queryParam: {
         pageIndex: 1,
         pageSize: 10,
-        status: 2
+        createUserName: "myself"
       },
+      audit: {
+        showDelete: false,
+        showAudit: false
+      },
+
       list: [],
       loading: false,
       finished: false,
@@ -95,6 +123,24 @@ export default {
         this.finished = true;
       } else {
         this.onRefresh();
+      }
+    }
+  },
+  filters: {
+    toTagType(value) {
+      let status = { blocked: 1, audited: 2 };
+      if (value == status.audited) {
+        return "success";
+      } else {
+        return "danger";
+      }
+    },
+    toTagTitle(value) {
+      let status = { blocked: 1, audited: 2 };
+      if (value == status.audited) {
+        return "已发布";
+      } else {
+        return "待审核";
       }
     }
   },
@@ -122,6 +168,27 @@ export default {
           this.loading = false;
         });
     },
+    onDelete(item, index) {
+      let _this = this;
+      _this.audit.showDelete = true;
+      _this.beforeDelete = function(action, done) {
+        if (action === "confirm") {
+          let request;
+          if (_this.theme == 0) {
+            request = deleteAPI.deleteLabor(item.id);
+          } else if (_this.theme == 1) {
+            request = deleteAPI.deleteSupply(item.id);
+          }
+          request
+            .then(() => _this.list.splice(index, 1))
+            .catch(e => {
+              _this.$notify(e.message);
+            });
+        }
+        done();
+      };
+    },
+    beforeDelete() {},
     onRefresh() {
       // 目前暴力清空列表数据
       this.list = [];
@@ -145,6 +212,7 @@ export default {
           pay: retArray[i].pay,
           price: retArray[i].price,
           phone: retArray[i].phone,
+          status: retArray[i].status,
           createTime: createTime,
           createUserName: retArray[i].createUserName,
           description: retArray[i].description

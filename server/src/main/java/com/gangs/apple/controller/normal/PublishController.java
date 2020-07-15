@@ -2,6 +2,7 @@ package com.gangs.apple.controller.normal;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gangs.apple.base.BaseApiController;
 import com.gangs.apple.base.RestResponse;
+import com.gangs.apple.base.SystemCode;
 import com.gangs.apple.domain.AppleLabor;
 import com.gangs.apple.domain.AppleSupply;
 import com.gangs.apple.domain.enums.AuditStatusEnum;
@@ -53,7 +55,9 @@ public class PublishController extends BaseApiController {
     
     @RequestMapping(value = "/supply/pagelist", method = RequestMethod.POST)
     public RestResponse<PageInfo<AppleSupplyPageResponseVM>> pageListSupply(@RequestBody @Valid AppleSupplyPageRequestVM model) {
-    	model.setStatus(AuditStatusEnum.Passed.getCode());
+    	if(model.getCreateUserName().equals("myself")) {
+    		model.setCreateUserName(getCurrentUser().getUserName());
+    	}
         PageInfo<AppleSupply> pageInfo = supplyService.page(model);
         PageInfo<AppleSupplyPageResponseVM> page = PageInfoHelper.copyMap(pageInfo, e -> {
         	AppleSupplyPageResponseVM vm = modelMapper.map(e, AppleSupplyPageResponseVM.class);
@@ -66,6 +70,24 @@ public class PublishController extends BaseApiController {
     @RequestMapping(value = "/supply/edit", method = RequestMethod.POST)
     public RestResponse editSupply(@RequestBody @Valid AppleSupplyRequestVM model) {
     	supplyService.edit(model, getCurrentUser());
+        return RestResponse.ok();
+    }
+    
+    @RequestMapping(value = "/labor/{id}", method = RequestMethod.DELETE)
+    public RestResponse deleteSelfLabor(@PathVariable Integer id) {
+    	if(laborService.selectById(id).getCreateUserName().equals(getCurrentUser().getUserName())) {
+    		return RestResponse.fail(SystemCode.AccessDenied.getCode(), SystemCode.AccessDenied.getMessage());
+    	}    	
+    	laborService.deleteById(id);
+        return RestResponse.ok();
+    }
+    
+    @RequestMapping(value = "/supply/{id}", method = RequestMethod.DELETE)
+    public RestResponse deleteSelfSupply(@PathVariable Integer id) {
+    	if(supplyService.selectById(id).getCreateUserName().equals(getCurrentUser().getUserName())) {
+    		return RestResponse.fail(SystemCode.AccessDenied.getCode(), SystemCode.AccessDenied.getMessage());
+    	}   
+    	supplyService.deleteById(id);
         return RestResponse.ok();
     }
 }

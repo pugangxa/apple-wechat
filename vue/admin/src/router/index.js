@@ -183,6 +183,18 @@ const routes = [
         meta: { title: "个人中心" }
       }
     ]
+  },
+  {
+    path: "/admin/profile",
+    name: "AdminProfile",
+    component: () => import("@/adminviews/user-info/profile"),
+    meta: { title: "修改资料", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/admin/about",
+    name: "AdminAbout",
+    component: () => import("@/adminviews/user-info/about"),
+    meta: { title: "关于", bodyBackground: "#fbfbfb" }
   }
 ];
 

@@ -41,6 +41,10 @@ public class RestDetailsServiceImpl implements UserDetailsService {
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(user.getRole()).getRoleName()));
 
+        if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.USER.getRoleName()));
+        }
+
         return new User(user.getUserName(), user.getPassword(), grantedAuthorities);
     }
 }
