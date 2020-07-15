@@ -62,8 +62,13 @@ public class UserController extends BaseApiController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public RestResponse update(@RequestBody @Valid UserUpdateVM model) {
+	//public RestResponse update(@RequestBody @Valid UserUpdateVM model) {
+	public RestResponse update(@RequestBody @Valid UserRegisterVM model) {
 		User user = userService.selectById(getCurrentUser().getId());
+		if(null != model.getPassword()) {
+			String encodePwd = authenticationService.pwdEncode(model.getPassword());
+			model.setPassword(encodePwd);
+		}
 		modelMapper.map(model, user);
 		user.setModifyTime(new Date());
 		userService.updateByIdFilter(user);

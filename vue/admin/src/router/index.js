@@ -109,6 +109,24 @@ const routes = [
       }
     ]
   },
+  {
+    path: "/user/profile",
+    name: "profile",
+    component: () => import("@/views/user-info/profile"),
+    meta: { title: "修改资料", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/user/publish",
+    name: "publish",
+    component: () => import("@/views/user-info/publish"),
+    meta: { title: "我的发布", bodyBackground: "#fbfbfb" }
+  },
+  {
+    path: "/user/about",
+    name: "about",
+    component: () => import("@/views/user-info/about"),
+    meta: { title: "关于", bodyBackground: "#fbfbfb" }
+  },
 
   //admin routes
   {

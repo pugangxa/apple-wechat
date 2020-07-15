@@ -32,7 +32,7 @@
                 size="mini"
                 :disabled="item.buttonDisabled"
                 @click="onAudit(item)"
-                >审核</van-button
+                >{{ item.buttonDisabled | toAuditTitle }}</van-button
               >
               <van-dialog
                 v-model="audit.showAudit"
@@ -132,6 +132,15 @@ export default {
         this.finished = true;
       } else {
         this.onRefresh();
+      }
+    }
+  },
+  filters: {
+    toAuditTitle(buttonDisabled) {
+      if (buttonDisabled) {
+        return "已通过";
+      } else {
+        return "审核";
       }
     }
   },
