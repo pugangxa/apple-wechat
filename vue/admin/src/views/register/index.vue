@@ -94,7 +94,7 @@ export default {
       },
       againPassword: "",
       value: "",
-      columns: ["果农", "果商", "技术专家"],
+      columns: ["果农", "果商"],
       showPicker: false
     };
   },

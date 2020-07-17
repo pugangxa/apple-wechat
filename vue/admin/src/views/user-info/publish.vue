@@ -1,6 +1,12 @@
 <template>
   <div>
-    <van-tabs v-model="active" animated sticky @click="onClick">
+    <van-nav-bar
+      title="我的发布"
+      left-text="返回"
+      left-arrow
+      @click-left="onClickLeft"
+    />
+    <van-tabs v-model="active" animated sticky>
       <van-tab
         v-for="(item, index) in tabItems"
         :title="item.title"
@@ -29,10 +35,8 @@ export default {
     };
   },
   methods: {
-    onClick() {
-      if (this.active == 2 || this.active == 3 || this.active == 4) {
-        this.$notify("实现中");
-      }
+    onClickLeft() {
+      this.$router.push({ path: "/user/index" });
     }
   }
 };

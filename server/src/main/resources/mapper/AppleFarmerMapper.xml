@@ -185,4 +185,21 @@
       additional_info = #{additionalInfo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  <select id="appleFarmerPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.normal.publish.AppleFarmerPageRequestVM">
+    select
+    <include refid="Base_Column_List" />
+    from t_apple_farmer
+    <where>
+      <if test="status != null ">
+        and status= #{status}
+      </if>
+      <if test="createUserName !=null ">
+        and create_user_name= #{createUserName}
+      </if>
+    </where>
+  </select>
 </mapper>

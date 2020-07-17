@@ -1,8 +1,11 @@
 package com.gangs.apple.repository;
 
-import com.gangs.apple.domain.AppleFarmer;
+import java.util.List;
 
-public interface AppleFarmerMapper {
+import com.gangs.apple.domain.AppleFarmer;
+import com.gangs.apple.viewmodel.normal.publish.AppleFarmerPageRequestVM;
+
+public interface AppleFarmerMapper extends BaseMapper<AppleFarmer>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(AppleFarmer record);
@@ -14,4 +17,7 @@ public interface AppleFarmerMapper {
     int updateByPrimaryKeySelective(AppleFarmer record);
 
     int updateByPrimaryKey(AppleFarmer record);
+    
+    List<AppleFarmer> appleFarmerPage(AppleFarmerPageRequestVM requestVM);
+
 }

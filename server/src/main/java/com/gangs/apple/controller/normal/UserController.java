@@ -63,7 +63,7 @@ public class UserController extends BaseApiController {
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	//public RestResponse update(@RequestBody @Valid UserUpdateVM model) {
-	public RestResponse update(@RequestBody @Valid UserRegisterVM model) {
+	public RestResponse update(@RequestBody @Valid UserUpdateVM model) {
 		User user = userService.selectById(getCurrentUser().getId());
 		if(null != model.getPassword()) {
 			String encodePwd = authenticationService.pwdEncode(model.getPassword());

@@ -1,8 +1,11 @@
 package com.gangs.apple.repository;
 
-import com.gangs.apple.domain.AppleMerchant;
+import java.util.List;
 
-public interface AppleMerchantMapper {
+import com.gangs.apple.domain.AppleMerchant;
+import com.gangs.apple.viewmodel.normal.publish.AppleMerchantPageRequestVM;
+
+public interface AppleMerchantMapper extends BaseMapper<AppleMerchant>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(AppleMerchant record);
@@ -14,4 +17,7 @@ public interface AppleMerchantMapper {
     int updateByPrimaryKeySelective(AppleMerchant record);
 
     int updateByPrimaryKey(AppleMerchant record);
+    
+    List<AppleMerchant> appleMerchantPage(AppleMerchantPageRequestVM requestVM);
+
 }

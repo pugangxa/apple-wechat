@@ -174,4 +174,21 @@
       additional_info = #{additionalInfo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  <select id="appleMerchantPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.normal.publish.AppleMerchantPageRequestVM">
+    select
+    <include refid="Base_Column_List" />
+    from t_apple_merchant
+    <where>
+      <if test="status != null ">
+        and status= #{status}
+      </if>
+      <if test="createUserName !=null ">
+        and create_user_name= #{createUserName}
+      </if>
+    </where>
+  </select>
+  
 </mapper>

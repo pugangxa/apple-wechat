@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-tabs v-model="active" animated sticky @click="onClick">
+    <van-tabs v-model="active" animated sticky>
       <van-tab
         v-for="(item, index) in tabItems"
         :title="item.title"
@@ -27,13 +27,6 @@ export default {
         { title: "专家信息", id: 5 }
       ]
     };
-  },
-  methods: {
-    onClick() {
-      if (this.active == 2 || this.active == 3 || this.active == 4) {
-        this.$notify("实现中");
-      }
-    }
   }
 };
 </script>

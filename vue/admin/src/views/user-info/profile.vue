@@ -22,7 +22,6 @@
             >
               <van-radio name="1">果农</van-radio>
               <van-radio name="2">果商</van-radio>
-              <van-radio name="3">技术专家</van-radio>
             </van-radio-group>
           </div>
         </div>

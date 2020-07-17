@@ -61,6 +61,9 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
 
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(user.getRole()).getRoleName()));
+        if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.USER.getRoleName()));
+        }
 
         User authUser = new User(user.getUserName(), user.getPassword(), grantedAuthorities);
         return new UsernamePasswordAuthenticationToken(authUser, authUser.getPassword(), authUser.getAuthorities());

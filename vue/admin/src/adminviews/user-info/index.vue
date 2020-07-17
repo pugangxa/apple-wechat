@@ -50,7 +50,7 @@ export default {
       loginApi.logout().then(function(result) {
         if (result && result.code === 1) {
           _this.clearLogin();
-          _this.$router.push({ path: "/login" });
+          _this.$router.push({ path: "/admin/login" });
         }
       });
     },

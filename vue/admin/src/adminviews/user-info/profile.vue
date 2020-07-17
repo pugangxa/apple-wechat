@@ -9,7 +9,7 @@
     <div class="form">
       <van-form @submit="onSubmit">
         <van-field
-          v-model="loginForm.password"
+          v-model="modifyForm.password"
           type="password"
           name="password"
           label="密码"
@@ -25,7 +25,7 @@
           :rules="[
             {
               validator: value => {
-                if (value !== this.loginForm.password) {
+                if (value !== this.modifyForm.password) {
                   return false;
                 }
               },

@@ -142,9 +142,9 @@ const routes = [
     children: [
       {
         path: "index",
-        component: () => import("@/adminviews/audit/index"),
+        component: () => import("@/adminviews/manage/index"),
         name: "",
-        meta: { title: "信息审核" }
+        meta: { title: "用户管理" }
       }
     ]
   },
@@ -185,13 +185,13 @@ const routes = [
     ]
   },
   {
-    path: "/admin/profile",
+    path: "/admin/user/profile",
     name: "AdminProfile",
     component: () => import("@/adminviews/user-info/profile"),
     meta: { title: "修改资料", bodyBackground: "#fbfbfb" }
   },
   {
-    path: "/admin/about",
+    path: "/admin/user/about",
     name: "AdminAbout",
     component: () => import("@/adminviews/user-info/about"),
     meta: { title: "关于", bodyBackground: "#fbfbfb" }

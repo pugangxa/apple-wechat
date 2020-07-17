@@ -26,7 +26,7 @@
           <div
             style="margin: auto 12px; word-wrap: break-word; word-break: break-all;"
           >
-            <p style="margin: 3px auto;">
+            <div style="margin: 3px auto;">
               <span style="font-size: 14px;" v-if="theme == 0">
                 <span v-if="item.type == 1">招工需求</span>
                 <span v-else>工作需求</span> 人数: {{ item.number }} 日薪(元):
@@ -38,7 +38,17 @@
                 {{ item.quantity }} 价格(元):
                 {{ item.price }}
               </span>
-            </p>
+              <div style="font-size: 14px;" v-if="theme == 2">
+                <span>果农</span>姓名: {{ item.name }} 收购品种:
+                {{ item.category }} 收购数量: {{ item.quantity }}
+                <div>地址: {{ item.location }}</div>
+              </div>
+              <div style="font-size: 14px;" v-if="theme == 3">
+                <span>果商</span>姓名: {{ item.name }} 收购品种:
+                {{ item.category }} 收购数量: {{ item.quantity }}
+                <div>地址: {{ item.location }}</div>
+              </div>
+            </div>
             <van-divider
               dashed
               :style="{
@@ -77,6 +87,7 @@ export default {
       queryParam: {
         pageIndex: 1,
         pageSize: 10,
+        //only audited
         status: 2
       },
       list: [],
@@ -91,11 +102,7 @@ export default {
       // 重新加载数据
       this.list = [];
       this.queryParam.pageIndex = 1;
-      if (this.theme == 2 || this.theme == 3 || this.theme == 4) {
-        this.finished = true;
-      } else {
-        this.onRefresh();
-      }
+      this.onRefresh();
     }
   },
   methods: {
@@ -106,6 +113,10 @@ export default {
         request = listAPI.pagelistLabor(this.queryParam);
       } else if (this.theme == 1) {
         request = listAPI.pagelistSupply(this.queryParam);
+      } else if (this.theme == 2) {
+        request = listAPI.pagelistFarmer(this.queryParam);
+      } else if (this.theme == 3) {
+        request = listAPI.pagelistMerchant(this.queryParam);
       }
       request
         .then(data => {
@@ -140,7 +151,10 @@ export default {
         this.list.push({
           id: retArray[i].id,
           type: retArray[i].type,
+          name: retArray[i].name,
           number: retArray[i].number,
+          location: retArray[i].location,
+          category: retArray[i].category,
           quantity: retArray[i].quantity,
           pay: retArray[i].pay,
           price: retArray[i].price,
