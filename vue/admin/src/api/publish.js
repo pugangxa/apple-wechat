@@ -5,8 +5,10 @@ export default {
   publishSupply: query => post(`/api/normal/publish/supply/edit`, query),
   publishFarmer: query => post(`/api/normal/publish/farmer/edit`, query),
   publishMerchant: query => post(`/api/normal/publish/merchant/edit`, query),
+  publishExpert: query => post(`/api/normal/publish/expert/edit`, query),
   deleteLabor: id => _delete(`/api/normal/labor/` + id),
   deleteSupply: id => _delete(`/api/normal/supply/` + id),
   deleteFarmer: id => _delete(`/api/normal/farmer/` + id),
-  deleteMerchant: id => _delete(`/api/normal/merchant/` + id)
+  deleteMerchant: id => _delete(`/api/normal/merchant/` + id),
+  deleteExpert: id => _delete(`/api/normal/expert/` + id)
 };

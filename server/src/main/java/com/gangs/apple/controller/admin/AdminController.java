@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gangs.apple.base.BaseApiController;
 import com.gangs.apple.base.RestResponse;
 import com.gangs.apple.domain.User;
+import com.gangs.apple.service.AppleExpertService;
 import com.gangs.apple.service.AppleFarmerService;
 import com.gangs.apple.service.AppleLaborService;
 import com.gangs.apple.service.AppleMerchantService;
@@ -31,6 +32,8 @@ public class AdminController  extends BaseApiController {
 	
 	private final AppleFarmerService farmerService;
 	private final AppleMerchantService merchantService;
+	
+	private final AppleExpertService expertService;
 	
     @RequestMapping(value = "/labor/audit/{id}", method = RequestMethod.POST)
     public RestResponse auditLabor(@PathVariable Integer id) {
@@ -56,6 +59,12 @@ public class AdminController  extends BaseApiController {
         return RestResponse.ok();
     }
     
+    @RequestMapping(value = "/expert/audit/{id}", method = RequestMethod.POST)
+    public RestResponse auditExpert(@PathVariable Integer id) {
+    	expertService.audit(id);
+        return RestResponse.ok();
+    }
+    
     @RequestMapping(value = "/labor/{id}", method = RequestMethod.DELETE)
     public RestResponse deleteLabor(@PathVariable Integer id) {
     	laborService.deleteById(id);
@@ -77,6 +86,12 @@ public class AdminController  extends BaseApiController {
     @RequestMapping(value = "/merchant/{id}", method = RequestMethod.DELETE)
     public RestResponse deleteMerchant(@PathVariable Integer id) {
     	merchantService.deleteById(id);
+        return RestResponse.ok();
+    }
+    
+    @RequestMapping(value = "/expert/{id}", method = RequestMethod.DELETE)
+    public RestResponse deleteExpert(@PathVariable Integer id) {
+    	expertService.deleteById(id);
         return RestResponse.ok();
     }
     

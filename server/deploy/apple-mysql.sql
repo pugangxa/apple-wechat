@@ -113,5 +113,26 @@ CREATE TABLE `t_apple_supply`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
+-- ----------------------------
+-- Table structure for t_apple_expert
+-- ----------------------------
+DROP TABLE IF EXISTS `t_apple_expert`;
+CREATE TABLE `t_apple_expert`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `expert` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `phone` varchar(12) NULL DEFAULT NULL COMMENT '电话号码',
+  `status` int(11) NULL DEFAULT NULL COMMENT '状态(1待审核 2完成)',
+  `create_user` int(11) NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `create_user_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `limit_start_time` datetime(0) NULL DEFAULT NULL COMMENT '开始时间',
+  `limit_end_time` datetime(0) NULL DEFAULT NULL COMMENT '结束时间',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `additional_info` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
 
 SET FOREIGN_KEY_CHECKS = 1;

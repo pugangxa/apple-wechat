@@ -1,6 +1,6 @@
 <template>
   <div style="padding-top: 10px">
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+    <van-pull-refresh v-model="loading" @refresh="onRefresh">
       <van-list
         v-model="loading"
         :finished="finished"
@@ -48,6 +48,11 @@
                 {{ item.category }} 收购数量: {{ item.quantity }}
                 <div>地址: {{ item.location }}</div>
               </div>
+              <div style="font-size: 14px;" v-if="theme == 4">
+                <span>技术专家</span>姓名: {{ item.name }} 邮箱:
+                {{ item.email }}
+                <div>技术专长: {{ item.expert }}</div>
+              </div>
             </div>
             <van-divider
               dashed
@@ -93,7 +98,6 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      refreshing: false,
       error: false
     };
   },
@@ -117,6 +121,8 @@ export default {
         request = listAPI.pagelistFarmer(this.queryParam);
       } else if (this.theme == 3) {
         request = listAPI.pagelistMerchant(this.queryParam);
+      } else if (this.theme == 4) {
+        request = listAPI.pagelistExpert(this.queryParam);
       }
       request
         .then(data => {
@@ -156,6 +162,8 @@ export default {
           location: retArray[i].location,
           category: retArray[i].category,
           quantity: retArray[i].quantity,
+          expert: retArray[i].expert,
+          email: retArray[i].email,
           pay: retArray[i].pay,
           price: retArray[i].price,
           phone: retArray[i].phone,

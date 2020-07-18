@@ -11,17 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gangs.apple.base.BaseApiController;
 import com.gangs.apple.base.RestResponse;
 import com.gangs.apple.base.SystemCode;
+import com.gangs.apple.domain.AppleExpert;
 import com.gangs.apple.domain.AppleFarmer;
 import com.gangs.apple.domain.AppleLabor;
 import com.gangs.apple.domain.AppleMerchant;
 import com.gangs.apple.domain.AppleSupply;
-import com.gangs.apple.domain.enums.AuditStatusEnum;
+import com.gangs.apple.service.AppleExpertService;
 import com.gangs.apple.service.AppleFarmerService;
 import com.gangs.apple.service.AppleLaborService;
 import com.gangs.apple.service.AppleMerchantService;
 import com.gangs.apple.service.AppleSupplyService;
 import com.gangs.apple.utility.DateTimeUtil;
 import com.gangs.apple.utility.PageInfoHelper;
+import com.gangs.apple.viewmodel.normal.publish.AppleExpertPageRequestVM;
+import com.gangs.apple.viewmodel.normal.publish.AppleExpertPageResponseVM;
+import com.gangs.apple.viewmodel.normal.publish.AppleExpertRequestVM;
 import com.gangs.apple.viewmodel.normal.publish.AppleFarmerPageRequestVM;
 import com.gangs.apple.viewmodel.normal.publish.AppleFarmerPageResponseVM;
 import com.gangs.apple.viewmodel.normal.publish.AppleFarmerRequestVM;
@@ -47,6 +51,8 @@ public class PublishController extends BaseApiController {
 	
 	private final AppleFarmerService farmerService;
 	private final AppleMerchantService merchantService;
+	
+	private final AppleExpertService expertService;
 	
     @RequestMapping(value = "/publish/labor/pagelist", method = RequestMethod.POST)
     public RestResponse<PageInfo<AppleLaborPageResponseVM>> pageListLabor(@RequestBody @Valid AppleLaborPageRequestVM model) {
@@ -163,6 +169,36 @@ public class PublishController extends BaseApiController {
     		return RestResponse.fail(SystemCode.AccessDenied.getCode(), SystemCode.AccessDenied.getMessage());
     	}   
     	merchantService.deleteById(id);
+        return RestResponse.ok();
+    }
+    
+    
+    @RequestMapping(value = "/publish/expert/pagelist", method = RequestMethod.POST)
+    public RestResponse<PageInfo<AppleExpertPageResponseVM>> pageListExpert(@RequestBody @Valid AppleExpertPageRequestVM model) {
+    	if(null != model.getCreateUserName() && model.getCreateUserName().equals("myself")) {
+    		model.setCreateUserName(getCurrentUser().getUserName());
+    	}
+        PageInfo<AppleExpert> pageInfo = expertService.page(model);
+        PageInfo<AppleExpertPageResponseVM> page = PageInfoHelper.copyMap(pageInfo, e -> {
+        	AppleExpertPageResponseVM vm = modelMapper.map(e, AppleExpertPageResponseVM.class);
+            vm.setCreateTime(DateTimeUtil.dateFormat(e.getCreateTime()));
+            return vm;
+        });
+        return RestResponse.ok(page);
+    }
+    
+    @RequestMapping(value = "/publish/expert/edit", method = RequestMethod.POST)
+    public RestResponse editExpert(@RequestBody @Valid AppleExpertRequestVM model) {
+    	expertService.edit(model, getCurrentUser());
+        return RestResponse.ok();
+    }
+    
+    @RequestMapping(value = "/expert/{id}", method = RequestMethod.DELETE)
+    public RestResponse deleteSelfExpert(@PathVariable Integer id) {
+    	if(!expertService.selectById(id).getCreateUserName().equals(getCurrentUser().getUserName())) {
+    		return RestResponse.fail(SystemCode.AccessDenied.getCode(), SystemCode.AccessDenied.getMessage());
+    	}   
+    	expertService.deleteById(id);
         return RestResponse.ok();
     }
 }
