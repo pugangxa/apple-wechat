@@ -138,7 +138,7 @@ const routes = [
   {
     path: "/admin",
     component: AdminLayout,
-    redirect: "/admin/audit/index",
+    redirect: "/admin/manage/index",
     children: [
       {
         path: "index",
