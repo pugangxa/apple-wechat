@@ -20,7 +20,7 @@
         </van-form>
       </van-sticky>
     </div>
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+    <van-pull-refresh v-model="loading" @refresh="onRefresh">
       <van-list
         v-model="loading"
         :finished="finished"
@@ -109,7 +109,6 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      refreshing: false,
       error: false
     };
   },
