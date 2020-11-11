@@ -14,11 +14,11 @@ const state = {
 const mutations = {
   setUserName(state, userName) {
     state.userName = userName;
-    Cookies.set("userName", userName, { expires: 30 });
+    Cookies.set("userName", userName, { expires: 300 });
   },
   setUserInfo: (state, userInfo) => {
     state.userInfo = userInfo;
-    Cookies.set("userInfo", userInfo, { expires: 30 });
+    Cookies.set("userInfo", userInfo, { expires: 300 });
   },
   clearLogin() {
     Cookies.remove("userName");
