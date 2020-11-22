@@ -42,12 +42,12 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
- 		<!--table tableName="t_user" domainObjectName="User" enableCountByExample="false"
+ 		<table tableName="t_user" domainObjectName="User" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
         
- 		<table tableName="t_apple_farmer" domainObjectName="AppleFarmer" enableCountByExample="false"
+ 		<!--table tableName="t_apple_farmer" domainObjectName="AppleFarmer" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
@@ -65,10 +65,10 @@
  		<table tableName="t_apple_supply" domainObjectName="AppleSupply" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table-->
+        </table>
         <table tableName="t_apple_expert" domainObjectName="AppleExpert" enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
+        </table-->
     </context>
 </generatorConfiguration>

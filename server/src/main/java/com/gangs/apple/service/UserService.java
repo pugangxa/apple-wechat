@@ -31,6 +31,8 @@ public interface UserService extends BaseService<User> {
      * @return User
      */
     User getUserByUserName(String username);
+    
+    User getUserByOpenId(String openId);
 
     /**
      * getUserByUserName
@@ -54,13 +56,6 @@ public interface UserService extends BaseService<User> {
      * @param users users
      */
     void insertUsers(List<User> users);
-
-    /**
-     * updateUser
-     *
-     * @param user user
-     */
-    void updateUser(User user);
 
     /**
      * updateUsersAge

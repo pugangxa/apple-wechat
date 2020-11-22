@@ -105,11 +105,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public void updateUser(User user) {
-        userMapper.updateUser(user);
-    }
-
-    @Override
     public void updateUsersAge(Integer age, List<Integer> ids) {
         Map<String, Object> map = new HashMap<>(2);
         map.put("idslist", ids);
@@ -143,5 +138,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		User user = userMapper.selectByPrimaryKey(id);
 		user.setPassword(DefaultPass);
 		userMapper.updateByPrimaryKeySelective(user);
+	}
+
+
+	@Override
+	public User getUserByOpenId(String openId) {
+		return userMapper.getUserByOpenId(openId);
 	}
 }

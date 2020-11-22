@@ -15,10 +15,11 @@
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="wx_open_id" jdbcType="VARCHAR" property="wxOpenId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_uuid, user_name, password, real_name, age, sex, status, phone, role, user_type, create_time, 
-    modify_time
+    id, user_uuid, user_name, password, real_name, age, sex, status, phone, role, user_type, 
+    create_time, modify_time, wx_open_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -34,13 +35,13 @@
     insert into t_user (id, user_uuid, user_name, 
       password, real_name, age, 
       sex, status, phone, 
-      role, user_type, create_time, modify_time
-      )
+      role, user_type, create_time, 
+      modify_time, wx_open_id)
     values (#{id,jdbcType=INTEGER}, #{userUuid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{sex,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, 
-      #{role,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}
-      )
+      #{role,jdbcType=INTEGER}, #{userType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{wxOpenId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.gangs.apple.domain.User">
     insert into t_user
@@ -84,6 +85,9 @@
       <if test="modifyTime != null">
         modify_time,
       </if>
+      <if test="wxOpenId != null">
+        wx_open_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +129,9 @@
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="wxOpenId != null">
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.gangs.apple.domain.User">
@@ -158,13 +165,16 @@
         role = #{role,jdbcType=INTEGER},
       </if>
       <if test="userType != null">
-        user_type = #{userType,jdbcType=VARCHAR},
+        user_type = #{userType,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="wxOpenId != null">
+        wx_open_id = #{wxOpenId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -182,9 +192,11 @@
       role = #{role,jdbcType=INTEGER},
       user_type = #{userType,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      wx_open_id = #{wxOpenId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   
   
   
@@ -194,34 +206,41 @@
   
   <select id="getAllUser" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from t_user
   </select>
 
   <select id="getUserById" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from t_user
     where id=#{value}
   </select>
 
   <select id="getUserByUserName" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from t_user
     where user_name=#{value} limit 1
+  </select>
+  
+  <select id="getUserByOpenId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where wx_open_id=#{value} limit 1
   </select>
 
   <select id="getUserByUserNamePwd" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from t_user
     where user_name=#{username} and password=#{pwd} limit 1
   </select>
 
   <select id="getUserByUuid" resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     from t_user
     where user_uuid=#{value,jdbcType=VARCHAR}
   </select>
@@ -229,7 +248,7 @@
 
   <select id="userPageList" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     FROM t_user
     <where>
         and deleted=0
@@ -239,7 +258,7 @@
     </where>
     ORDER BY id
     <if test="offset != null and limit != null ">
-      <bind name="patternAdd" value="limit*offset"/>
+      <bind name="patternAdd" value="limit*offset" />
       limit #{limit} OFFSET #{offset}
     </if>
   </select>
@@ -255,13 +274,11 @@
     </where>
   </select>
 
-  <insert id="insertUsers" parameterType="java.util.List"
-          useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertUsers" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
     insert into t_user
     (user_uuid,user_name,password,real_name,age,last_active_time)
     values
-    <foreach collection="list" item="item" index="index"
-             separator=",">
+    <foreach collection="list" index="index" item="item" separator=",">
       (#{item.userUuid},#{item.userName},#{item.password},#{item.realName},#{item.age},
       #{item.lastActiveTime})
     </foreach>
@@ -270,8 +287,7 @@
 
   <update id="updateUsersAge">
     update t_user set age = #{age} where id in
-    <foreach item="id" collection="idslist" open="(" separator=","
-             close=")">
+    <foreach close=")" collection="idslist" item="id" open="(" separator=",">
       #{id}
     </foreach>
   </update>
@@ -279,13 +295,12 @@
 
   <delete id="deleteUsersByIds">
     delete from t_user where id in
-    <foreach item="id" collection="list" open="(" separator=","
-             close=")">
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
       #{id}
     </foreach>
   </delete>
 
-  <select id="selectAllCount"  resultType="java.lang.Integer">
+  <select id="selectAllCount" resultType="java.lang.Integer">
 		SELECT count(*) from t_user where deleted=0
   </select>
 
@@ -296,15 +311,14 @@
     <include refid="Base_Column_List" />
      from t_user
      where id in
-    <foreach item="id" collection="list" open="(" separator=","
-             close=")">
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
       #{id}
     </foreach>
   </select>
   
-  <select id="userPage" resultMap="BaseResultMap" parameterType="com.gangs.apple.viewmodel.admin.user.UserPageRequestVM">
+  <select id="userPage" parameterType="com.gangs.apple.viewmodel.admin.user.UserPageRequestVM" resultMap="BaseResultMap">
     SELECT
-    <include refid="Base_Column_List"/>
+    <include refid="Base_Column_List" />
     FROM t_user
     <where>
       <if test="userName != null and userName != ''">

@@ -1,11 +1,8 @@
 package com.gangs.apple.configuration.spring.security;
 
 
-import com.gangs.apple.context.WebContext;
-import com.gangs.apple.domain.enums.RoleEnum;
-import com.gangs.apple.domain.enums.UserStatusEnum;
-import com.gangs.apple.service.AuthenticationService;
-import com.gangs.apple.service.UserService;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,10 +13,14 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
+import com.gangs.apple.context.WebContext;
+import com.gangs.apple.domain.enums.RoleEnum;
+import com.gangs.apple.domain.enums.UserStatusEnum;
+import com.gangs.apple.service.AuthenticationService;
+import com.gangs.apple.service.UserService;
 
 /**
  * 登录用户名密码验证
@@ -43,22 +44,38 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
-
-        com.gangs.apple.domain.User user = userService.getUserByUserName(username);
+        String openid = (String)((AppleUserAuthenticationToken)authentication).getWxOpenId();
+        
+		if(StringUtils.isEmpty(openid)) {
+			throw new UserNotBindException("请先关注本公众号", openid);
+		}
+        com.gangs.apple.domain.User user = userService.getUserByOpenId(openid);
+        
         if (user == null) {
-            throw new UsernameNotFoundException("用户名或密码错误");
+        	if( StringUtils.isEmpty(username)) {
+            	//用户未绑定，redirect 到login page
+                throw new UserNotBindException("用户未绑定", openid);
+        	}else {
+        		com.gangs.apple.domain.User userByName = userService.getUserByUserName(username);
+        		if(null == userByName) {
+        			throw new BadCredentialsException("用户名或密码错误");
+        		}
+        		//must be from login page, 验证并绑定用户
+                boolean result = authenticationService.authUser(userByName, username, password);
+                if (!result) {
+                    throw new BadCredentialsException("用户名或密码错误");
+                }
+                UserStatusEnum userStatusEnum = UserStatusEnum.fromCode(userByName.getStatus());
+                if (UserStatusEnum.Disable == userStatusEnum) {
+                    throw new LockedException("用户名或密码错误");
+                }
+                userByName.setWxOpenId(openid);
+                userService.updateById(userByName);
+                //to continue login succeeded logic
+                user = userByName;
+        	}
         }
-
-        boolean result = authenticationService.authUser(user, username, password);
-        if (!result) {
-            throw new BadCredentialsException("用户名或密码错误");
-        }
-
-        UserStatusEnum userStatusEnum = UserStatusEnum.fromCode(user.getStatus());
-        if (UserStatusEnum.Disable == userStatusEnum) {
-            throw new LockedException("用户被禁用");
-        }
-
+        //just login succeeded
         ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(user.getRole()).getRoleName()));
         if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {

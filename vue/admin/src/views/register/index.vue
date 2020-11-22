@@ -70,7 +70,7 @@
         </div>
         <div class="text-foot">
           已有账号?
-          <router-link to="/login" class="login-link">
+          <router-link :to="{path: '/login', query: {openid: loginForm.wxOpenId }}">
             登录
           </router-link>
         </div>
@@ -82,6 +82,7 @@
 <script>
 import { Toast } from "vant";
 import registerApi from "@/api/register";
+import { getQueryObject } from "@/utils";
 
 export default {
   name: "Register",
@@ -90,6 +91,7 @@ export default {
       loginForm: {
         userName: "",
         password: "",
+        wxOpenId: getQueryObject().openid,
         userType: 1
       },
       againPassword: "",
@@ -104,7 +106,7 @@ export default {
       registerApi.register(this.loginForm).then(function(result) {
         if (result && result.code === 1) {
           Toast.success("注册成功");
-          _this.$router.push({ path: "/login" });
+          _this.$router.push({ path: "/login", query: {openid: _this.loginForm.wxOpenId }});
         } else {
           _this.$notify({
             message: result.message

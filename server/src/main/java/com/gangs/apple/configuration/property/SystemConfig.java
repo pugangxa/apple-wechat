@@ -9,6 +9,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "system")
 @Data
 public class SystemConfig {
+	private WxConfig wx;
     private PasswordKeyConfig pwdKey;
     private List<String> securityIgnoreUrls;
 }

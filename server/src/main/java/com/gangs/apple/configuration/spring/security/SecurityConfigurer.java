@@ -81,7 +81,7 @@ public class SecurityConfigurer {
 
         @Bean
         public RestLoginAuthenticationFilter authenticationFilter() throws Exception {
-            RestLoginAuthenticationFilter authenticationFilter = new RestLoginAuthenticationFilter();
+            RestLoginAuthenticationFilter authenticationFilter = new RestLoginAuthenticationFilter(systemConfig);
             authenticationFilter.setAuthenticationSuccessHandler(restAuthenticationSuccessHandler);
             authenticationFilter.setAuthenticationFailureHandler(restAuthenticationFailureHandler);
             authenticationFilter.setAuthenticationManager(authenticationManagerBean());

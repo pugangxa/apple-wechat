@@ -17,6 +17,9 @@ mybatis:
 
 
 system:
+  wx:
+    appId: wx697e0b8953aa9edd
+    appSecret: xxxxxxxx
   security-ignore-urls:
     - /api/admin/upload/configAndUpload
     - /api/admin/upload/auth

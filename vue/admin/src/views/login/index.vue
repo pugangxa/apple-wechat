@@ -36,7 +36,7 @@
     </div>
     <div class="text-foot">
       还没有账号?
-      <router-link to="/register" class="register">
+      <router-link :to="{path: '/register', query: {openid: loginForm.wxOpenId }}">
         注册
       </router-link>
     </div>
@@ -46,6 +46,7 @@
 import { Toast } from "vant";
 import { mapMutations } from "vuex";
 import loginApi from "@/api/login";
+import { getQueryObject } from "@/utils";
 
 export default {
   data() {
@@ -53,6 +54,7 @@ export default {
       loginForm: {
         userName: "",
         password: "",
+        wxOpenId: getQueryObject().openid,
         remember: false
       }
     };

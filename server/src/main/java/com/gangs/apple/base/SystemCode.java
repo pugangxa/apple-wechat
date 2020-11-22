@@ -13,6 +13,8 @@ public enum SystemCode {
      * UNAUTHORIZED
      */
     UNAUTHORIZED(401, "用户未登录"),
+    
+    UNBIND(407, "用户未绑定"),
     /**
      * UNAUTHORIZED
      */

@@ -3,18 +3,20 @@ package com.gangs.apple.controller.normal;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gangs.apple.viewmodel.normal.user.UserResponseVM;
-import com.gangs.apple.viewmodel.normal.user.UserUpdateVM;
 import com.gangs.apple.base.BaseApiController;
 import com.gangs.apple.base.RestResponse;
+import com.gangs.apple.configuration.property.SystemConfig;
 import com.gangs.apple.domain.User;
 import com.gangs.apple.domain.enums.RoleEnum;
 import com.gangs.apple.domain.enums.UserStatusEnum;
@@ -23,6 +25,8 @@ import com.gangs.apple.event.UserEvent;
 import com.gangs.apple.service.AuthenticationService;
 import com.gangs.apple.service.UserService;
 import com.gangs.apple.viewmodel.normal.user.UserRegisterVM;
+import com.gangs.apple.viewmodel.normal.user.UserResponseVM;
+import com.gangs.apple.viewmodel.normal.user.UserUpdateVM;
 
 import lombok.AllArgsConstructor;
 
@@ -30,6 +34,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/normal/user")
 @AllArgsConstructor
 public class UserController extends BaseApiController {
+
 	private final UserService userService;
 	private final AuthenticationService authenticationService;
 	private final ApplicationEventPublisher eventPublisher;

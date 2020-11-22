@@ -1,6 +1,6 @@
-import { post } from "@/utils/request";
+import { get, post } from "@/utils/request";
 
 export default {
-  login: query => post(`/api/user/login`, query),
+  login: query => get(`/api/user/login`, query),
   logout: query => post(`/api/user/logout`, query)
 };

@@ -23,6 +23,7 @@ CREATE TABLE `t_user`  (
   `user_type` int(11) NULL DEFAULT NULL COMMENT '1.果农 2.果商 3.技术专家',
   `create_time` datetime(0) NULL DEFAULT NULL,
   `modify_time` datetime(0) NULL DEFAULT NULL,
+  `wx_open_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信openId',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 

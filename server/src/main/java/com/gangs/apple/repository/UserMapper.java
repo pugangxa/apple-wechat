@@ -5,10 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.gangs.apple.domain.User;
 import com.gangs.apple.domain.other.KeyValue;
 import com.gangs.apple.viewmodel.admin.user.UserPageRequestVM;
-import com.gangs.apple.repository.BaseMapper;
-import com.gangs.apple.domain.User;
 
 public interface UserMapper extends BaseMapper<User>{
     int deleteByPrimaryKey(Integer id);
@@ -23,7 +22,6 @@ public interface UserMapper extends BaseMapper<User>{
 
     int updateByPrimaryKey(User record);
     
-
     /**
      * getAllUser
      *
@@ -137,4 +135,5 @@ public interface UserMapper extends BaseMapper<User>{
 
     List<User> selectByIds(List<Integer> ids);
 
+	User getUserByOpenId(String openId);
 }

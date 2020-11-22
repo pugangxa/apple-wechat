@@ -3,7 +3,6 @@ package com.gangs.apple.domain;
 import java.util.Date;
 
 public class User {
-	
     private Integer id;
 
     private String userUuid;
@@ -24,21 +23,15 @@ public class User {
 
     private Integer role;
 
+    private Integer userType;
+
     private Date createTime;
 
     private Date modifyTime;
-    
-    private Integer userType;
 
-    public Integer getUserType() {
-		return userType;
-	}
+    private String wxOpenId;
 
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -118,6 +111,14 @@ public class User {
         this.role = role;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -132,5 +133,13 @@ public class User {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public String getWxOpenId() {
+        return wxOpenId;
+    }
+
+    public void setWxOpenId(String wxOpenId) {
+        this.wxOpenId = wxOpenId == null ? null : wxOpenId.trim();
     }
 }

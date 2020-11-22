@@ -18,6 +18,11 @@ public class RestAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        RestUtil.response(response, SystemCode.AuthError.getCode(), exception.getMessage());
+        if(exception instanceof UserNotBindException) {
+        	response.sendRedirect("/index.html#/login?openid=" + ((UserNotBindException)exception).getOpenId());
+        	//RestUtil.response(response, SystemCode.UNBIND.getCode(), exception.getMessage(), ((UserNotBindException)exception).getOpenId());
+        }else {
+        	RestUtil.response(response, SystemCode.AuthError.getCode(), exception.getMessage());
+        }
     }
 }
