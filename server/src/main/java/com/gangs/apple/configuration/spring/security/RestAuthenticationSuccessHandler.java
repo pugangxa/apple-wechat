@@ -2,6 +2,7 @@ package com.gangs.apple.configuration.spring.security;
 
 import com.gangs.apple.base.SystemCode;
 import com.gangs.apple.context.WebContext;
+import com.gangs.apple.domain.enums.RoleEnum;
 import com.gangs.apple.domain.other.UserEventLog;
 import com.gangs.apple.event.UserEvent;
 import com.gangs.apple.service.UserService;
@@ -38,7 +39,12 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         eventPublisher.publishEvent(new UserEvent(userEventLog));
         com.gangs.apple.domain.User newUser = new com.gangs.apple.domain.User();
         newUser.setUserName(user.getUserName());
-        response.sendRedirect("/index.html#/dashboard/index");
+        if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {
+        	RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
+        }else {
+        	response.sendRedirect("/index.html#/dashboard/index");
+        }
+        
         //RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
     }
 }
