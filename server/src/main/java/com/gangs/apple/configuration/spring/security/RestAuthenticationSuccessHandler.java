@@ -38,6 +38,7 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         eventPublisher.publishEvent(new UserEvent(userEventLog));
         com.gangs.apple.domain.User newUser = new com.gangs.apple.domain.User();
         newUser.setUserName(user.getUserName());
-        RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
+        response.sendRedirect("/index.html#/dashboard/index");
+        //RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
     }
 }

@@ -45,10 +45,31 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         String username = authentication.getName();
         String password = (String) authentication.getCredentials();
         String openid = (String)((AppleUserAuthenticationToken)authentication).getWxOpenId();
+        ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        com.gangs.apple.domain.User userByName = userService.getUserByUserName(username);
         
 		if(StringUtils.isEmpty(openid)) {
-			throw new UserNotBindException("请先关注本公众号", openid);
+			if( StringUtils.isEmpty(username)) {
+				throw new UserNotBindException("请先关注本公众号", openid);
+			}else {
+				//check whether it's admin
+        		if(null == userByName) {
+        			throw new BadCredentialsException("用户名或密码错误");
+        		}
+		        if(RoleEnum.fromCode(userByName.getRole()) == RoleEnum.ADMIN) {
+		        	boolean result = authenticationService.authUser(userByName, username, password);
+	                if (!result) {
+	                    throw new BadCredentialsException("用户名或密码错误");
+	                }
+	                grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(userByName.getRole()).getRoleName()));
+	                grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.USER.getRoleName()));
+	                User authUser = new User(userByName.getUserName(), userByName.getPassword(), grantedAuthorities);
+	                return new UsernamePasswordAuthenticationToken(authUser, authUser.getPassword(), authUser.getAuthorities());
+		        }
+			}
 		}
+		
+		//Now it's normal user
         com.gangs.apple.domain.User user = userService.getUserByOpenId(openid);
         
         if (user == null) {
@@ -56,7 +77,6 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
             	//用户未绑定，redirect 到login page
                 throw new UserNotBindException("用户未绑定", openid);
         	}else {
-        		com.gangs.apple.domain.User userByName = userService.getUserByUserName(username);
         		if(null == userByName) {
         			throw new BadCredentialsException("用户名或密码错误");
         		}
@@ -67,7 +87,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
                 }
                 UserStatusEnum userStatusEnum = UserStatusEnum.fromCode(userByName.getStatus());
                 if (UserStatusEnum.Disable == userStatusEnum) {
-                    throw new LockedException("用户名或密码错误");
+                    throw new LockedException("用户已禁用");
                 }
                 userByName.setWxOpenId(openid);
                 userService.updateById(userByName);
@@ -76,11 +96,7 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         	}
         }
         //just login succeeded
-        ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(user.getRole()).getRoleName()));
-        if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.USER.getRoleName()));
-        }
 
         User authUser = new User(user.getUserName(), user.getPassword(), grantedAuthorities);
         return new UsernamePasswordAuthenticationToken(authUser, authUser.getPassword(), authUser.getAuthorities());

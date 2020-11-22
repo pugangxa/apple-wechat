@@ -19,6 +19,12 @@ VueRouter.prototype.replace = function replace(location) {
 
 const routes = [
   {
+    path: "/wxerror",
+    name: "WxError",
+    component: () => import("@/views/error/wxerror"),
+    meta: { title: "出错啦", bodyBackground: "#fbfbfb" }
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/login/index"),
