@@ -5,6 +5,8 @@ public enum SystemCode {
      * OK
      */
     OK(1, "成功"),
+    
+    Redirect(302, "重定向"),
     /**
      * AccessTokenError
      */

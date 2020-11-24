@@ -25,6 +25,12 @@ const routes = [
     meta: { title: "出错啦", bodyBackground: "#fbfbfb" }
   },
   {
+    path: "/logout",
+    name: "Wxlogout",
+    component: () => import("@/views/error/logout"),
+    meta: { title: "退出登陆", bodyBackground: "#fbfbfb" }
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/login/index"),

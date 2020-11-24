@@ -42,7 +42,11 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         if(RoleEnum.fromCode(user.getRole()) == RoleEnum.ADMIN) {
         	RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
         }else {
-        	response.sendRedirect("/index.html#/dashboard/index");
+        	if(authentication instanceof AppleUserAuthenticationToken) {
+        		RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);
+        	}else {
+            	response.sendRedirect("/index.html#/dashboard/index");
+        	}
         }
         
         //RestUtil.response(response, SystemCode.OK.getCode(), SystemCode.OK.getMessage(), newUser);

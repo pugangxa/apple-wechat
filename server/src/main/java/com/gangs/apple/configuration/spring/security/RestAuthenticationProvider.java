@@ -91,11 +91,14 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
                 }
                 userByName.setWxOpenId(openid);
                 userService.updateById(userByName);
-                //to continue login succeeded logic
-                user = userByName;
+                //return AppleUserAuthenticationToken so that we know it's from login page
+                grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(userByName.getRole()).getRoleName()));
+
+                User authUser = new User(userByName.getUserName(), userByName.getPassword(), grantedAuthorities);
+                return new AppleUserAuthenticationToken(authUser, authUser.getPassword(), openid, authUser.getAuthorities());
         	}
         }
-        //just login succeeded
+        //openid already bind to a user, just login succeeded and return UsernamePasswordAuthenticationToken
         grantedAuthorities.add(new SimpleGrantedAuthority(RoleEnum.fromCode(user.getRole()).getRoleName()));
 
         User authUser = new User(user.getUserName(), user.getPassword(), grantedAuthorities);
