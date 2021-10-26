@@ -42,6 +42,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-      	    cd /apple
+            cd /apple
             java -jar apple-0.0.1.jar
 
